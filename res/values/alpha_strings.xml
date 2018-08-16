@@ -255,4 +255,11 @@
     <string name="search_all_entrypoints_enabled_title">Circle to search</string>
     <string name="search_all_entrypoints_enabled_summary">Use CTS instead of lens for navbar long press</string>
 
+    <!-- Lockscreen categories -->
+    <string name="lockscreen_battery_category">Battery</string>
+
+    <!-- Lockscreen battery info indicator -->
+    <string name="lockscreen_battery_info_title">Battery info</string>
+    <string name="lockscreen_battery_info_summary">Display battery info when charging</string>
+
 </resources>
