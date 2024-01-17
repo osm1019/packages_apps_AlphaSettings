@@ -396,6 +396,7 @@
     <string name="brightness_slider_haptics_intensity_title">Brightness slider haptics intensity</string>
     <string name="edge_scrolling_haptics_intensity_title">Edge scrolling haptics intensity</string>
     <string name="volume_slider_haptics_intensity_title">Volume slider haptics intensity</string>
+
     
         <!-- Volume Styles -->
     <string name="revamped_aosp_style">Revamped AOSP UI style</string>
