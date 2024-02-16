@@ -207,10 +207,10 @@
     <string name="category_alpha_info">AlphaDroid</string>
     <string name="category_device_info">Устройство</string>
     <!-- Build info -->
-    <string name="build_status_title">Статус сборки: %s</string>
+    <string name="build_status_title">Статус сборки</string>
     <string name="build_status_summary_placeholder">Ahoy</string>
     <string name="build_status_official">Официальный</string>
-    <string name="build_status_summary">Поддерживается: %s</string>
+    <string name="build_status_summary">Поддерживается</string>
     <string name="build_status_oopsie">Поиск сопровождающего...</string>
     <!-- Ignore window secure -->
     <string name="ignore_window_secure_title">Игнорировать флаг безопасности окон</string>
@@ -347,10 +347,10 @@
     <!-- Pixel battery usage chart -->
     <string name="advanced_battery_preference_summary_google">Использовать график использования батареи Pixel</string>
     <!-- Haptics Settings -->
-    <string name="haptics_settings_title">System haptics</string>
-    <string name="haptics_settings_summary">Modify system haptics intensities</string>
-    <string name="back_gesture_haptic_intensity_title">Back gesture haptics intensity</string>
-    <string name="brightness_slider_haptics_intensity_title">Brightness slider haptics intensity</string>
-    <string name="edge_scrolling_haptics_intensity_title">Edge scrolling haptics intensity</string>
-    <string name="volume_slider_haptics_intensity_title">Volume slider haptics intensity</string>
+    <string name="haptics_settings_title">Системная вибрация</string>
+    <string name="haptics_settings_summary">Изменение уровня системной вибрации</string>
+    <string name="back_gesture_haptic_intensity_title">Вибрация жеста «Назад»</string>
+    <string name="brightness_slider_haptics_intensity_title">Вибрация ползунка яркости</string>
+    <string name="edge_scrolling_haptics_intensity_title">Интенсивность вибрации прокрутки</string>
+    <string name="volume_slider_haptics_intensity_title">Вибрация ползунка громкости</string>
 </resources>
