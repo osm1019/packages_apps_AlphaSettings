@@ -21,4 +21,22 @@
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
     android:title="@string/navigation_title">
 
+<<<<<<< HEAD:res/xml/alpha_settings_navigation.xml
+=======
+    <Preference
+        android:key="button_category"
+        android:fragment="com.power.hub.fragments.ButtonSettings"
+        android:title="@string/button_title" />
+
+    <Preference
+        android:key="pulse_settings"
+        android:title="@string/pulse_settings"
+        android:fragment="com.power.hub.fragments.PulseSettings" />
+
+     <Preference
+        android:key="spoofing"
+        android:title="@string/spoofing_title"
+        android:fragment="com.power.hub.fragments.Spoofing" />
+		
+>>>>>>> 73607fd3 (Powerhub: Add spoofing features):res/xml/powerhub_misc.xml
 </PreferenceScreen>

@@ -19,5 +19,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
     android:title="@string/misc_title">
+   
+     <Preference
+        android:key="spoofing"
+        android:title="@string/spoofing_title"
+        android:fragment="com.alpha.fragments.Spoofing" />
 
 </PreferenceScreen>
