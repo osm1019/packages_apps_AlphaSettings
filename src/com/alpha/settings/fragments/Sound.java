@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016-2024 crDroid Android Project
+ *               2023-2024 AlphaDroid Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,100 +20,54 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.os.SystemProperties;
 import android.os.UserHandle;
+import android.provider.SearchIndexableResource;
 import android.provider.Settings;
+import android.text.TextUtils;
 
-import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.Preference.OnPreferenceChangeListener;
-import androidx.preference.SwitchPreferenceCompat;
 
 import com.android.internal.logging.nano.MetricsProto;
+
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settingslib.search.SearchIndexable;
 
-import com.alpha.settings.fragments.sound.AdaptivePlayback;
-import com.alpha.settings.fragments.sound.PulseSettings;
-import com.alpha.settings.utils.TelephonyUtils;
-
 import java.util.List;
-import java.util.ArrayList;
 
 import lineageos.providers.LineageSettings;
 
 @SearchIndexable
-public class Sound extends SettingsPreferenceFragment {
+public class Sound extends SettingsPreferenceFragment
+            implements Preference.OnPreferenceChangeListener  {
 
     public static final String TAG = "Sound";
-
-    private static final String KEY_VIBRATE_CATEGORY = "incall_vib_options";
-    private static final String KEY_VIBRATE_CONNECT = "vibrate_on_connect";
-    private static final String KEY_VIBRATE_CALLWAITING = "vibrate_on_callwaiting";
-    private static final String KEY_VIBRATE_DISCONNECT = "vibrate_on_disconnect";
-    private static final String KEY_VOLUME_PANEL_LEFT = "volume_panel_on_left";
-
-    private SwitchPreferenceCompat mVolumePanelLeft;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.alpha_settings_sound);
+    }
 
-        final PreferenceScreen prefScreen = getPreferenceScreen();
-
-        ContentResolver resolver = getActivity().getContentResolver();
-
-        boolean isAudioPanelOnLeft = LineageSettings.Secure.getIntForUser(resolver,
-                LineageSettings.Secure.VOLUME_PANEL_ON_LEFT, isAudioPanelOnLeftSide(getActivity()) ? 1 : 0,
-                UserHandle.USER_CURRENT) != 0;
-
-        mVolumePanelLeft = (SwitchPreferenceCompat) prefScreen.findPreference(KEY_VOLUME_PANEL_LEFT);
-        mVolumePanelLeft.setChecked(isAudioPanelOnLeft);
-
-        final PreferenceCategory vibCategory = prefScreen.findPreference(KEY_VIBRATE_CATEGORY);
-
-        if (!TelephonyUtils.isVoiceCapable(getActivity())) {
-            prefScreen.removePreference(vibCategory);
-        }
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        return false;
     }
 
     public static void reset(Context mContext) {
         ContentResolver resolver = mContext.getContentResolver();
-        LineageSettings.Secure.putIntForUser(resolver,
-                LineageSettings.Secure.VOLUME_PANEL_ON_LEFT, isAudioPanelOnLeftSide(mContext) ? 1 : 0,
-                UserHandle.USER_CURRENT);
-        Settings.Secure.putIntForUser(resolver,
-                Settings.Secure.VOLUME_DIALOG_DISMISS_TIMEOUT, 5000, UserHandle.USER_CURRENT);
-        Settings.System.putIntForUser(resolver,
-                Settings.System.VIBRATE_ON_CONNECT, 0, UserHandle.USER_CURRENT);
-        Settings.System.putIntForUser(resolver,
-                Settings.System.VIBRATE_ON_CALLWAITING, 0, UserHandle.USER_CURRENT);
-        Settings.System.putIntForUser(resolver,
-                Settings.System.VIBRATE_ON_DISCONNECT, 0, UserHandle.USER_CURRENT);
-        Settings.System.putIntForUser(resolver,
-                Settings.System.SCREENSHOT_SHUTTER_SOUND, 1, UserHandle.USER_CURRENT);
-        PulseSettings.reset(mContext);
-        AdaptivePlayback.reset(mContext);
     }
 
-    private static boolean isAudioPanelOnLeftSide(Context context) {
-        try {
-            Context con = context.createPackageContext("org.lineageos.lineagesettings", 0);
-            int id = con.getResources().getIdentifier("def_volume_panel_on_left",
-                    "bool", "org.lineageos.lineagesettings");
-            return con.getResources().getBoolean(id);
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -129,14 +84,6 @@ public class Sound extends SettingsPreferenceFragment {
                 @Override
                 public List<String> getNonIndexableKeys(Context context) {
                     List<String> keys = super.getNonIndexableKeys(context);
-
-                    if (!TelephonyUtils.isVoiceCapable(context)) {
-                        keys.add(KEY_VIBRATE_CATEGORY);
-                        keys.add(KEY_VIBRATE_CONNECT);
-                        keys.add(KEY_VIBRATE_CALLWAITING);
-                        keys.add(KEY_VIBRATE_DISCONNECT);
-                    }
-
                     return keys;
                 }
             };

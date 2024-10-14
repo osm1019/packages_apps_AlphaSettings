@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
      Copyright (C) 2016-2023 crDroid Android Project
-                        2023 AlphaDroid
+                        2023-2024 AlphaDroid Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -20,79 +20,5 @@
     xmlns:lineage="http://schemas.android.com/apk/res-auto"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
     android:title="@string/ui_title">
-
-    <!-- Monet Theme Engine -->
-    <Preference
-        android:key="monet_engine"
-        android:icon="@drawable/ic_themes"
-        android:title="@string/monet_title"
-        android:summary="@string/monet_summary"
-        android:fragment="com.alpha.settings.fragments.ui.MonetSettings" />
-
-    <!-- UI style -->
-    <Preference
-        android:key="android.theme.customization.style"
-        android:icon="@drawable/ic_ui_styles"
-        android:title="@string/theme_customization_ui_style_title"
-        android:summary="@string/theme_customization_ui_style_summary"
-        android:fragment="com.alpha.settings.fragments.ui.UIStyles"/>
-
-    <!-- Settings dashboard style -->
-    <com.alpha.settings.preferences.SystemSettingListPreference
-            android:key="settings_style"
-            android:icon="@drawable/ic_color_bucket"
-            android:title="@string/settings_dashboard_style_title"
-            android:entries="@array/settings_dashboard_style_entries"
-            android:entryValues="@array/settings_dashboard_style_values"
-            android:summary="%s"
-            android:defaultValue="2" />
-
-    <!-- Navbar Style -->
-    <Preference
-        android:key="android.theme.customization.navbar"
-        android:icon="@drawable/ic_navbar"
-        android:title="@string/theme_customization_navbar_title"
-        android:summary="@string/theme_customization_navbar_summary"
-        android:fragment="com.alpha.settings.fragments.ui.NavbarStyles"/>
-
-    <!-- Font style -->
-    <Preference
-        android:key="android.theme.customization.fonts"
-        android:icon="@drawable/ic_font"
-        android:title="@string/theme_customization_font_title"
-        android:summary="@string/theme_customization_font_summary"
-        android:fragment="com.alpha.settings.fragments.ui.FontsPicker"/>
-
-    <!-- Icon pack -->
-    <Preference
-        android:key="android.theme.customization.icon_pack"
-        android:icon="@drawable/ic_drawing"
-        android:title="@string/theme_customization_icon_pack_title"
-        android:summary="@string/theme_customization_icon_pack_summary"
-        android:fragment="com.alpha.settings.fragments.ui.StatusbarIcons"/>
-
-    <!-- Signal icon style -->
-    <Preference
-        android:key="android.theme.customization.signal_icon"
-        android:icon="@drawable/ic_signal"
-        android:title="@string/theme_customization_signal_icon_title"
-        android:summary="@string/theme_customization_signal_icon_summary"
-        android:fragment="com.alpha.settings.fragments.ui.SignalIcons"/>
-
-    <!-- Wifi icon style -->
-    <Preference
-        android:key="android.theme.customization.wifi_icon"
-        android:icon="@drawable/ic_wifi"
-        android:title="@string/theme_customization_wifi_icon_title"
-        android:summary="@string/theme_customization_wifi_icon_summary"
-        android:fragment="com.alpha.settings.fragments.ui.WifiIcons"/>
-
-    <!-- Adaptive icon pack -->
-    <Preference
-        android:key="android.theme.customization.adaptive_icon_shape"
-        android:icon="@drawable/ic_shapes"
-        android:title="@string/theme_customization_icon_shape_title"
-        android:summary="@string/theme_customization_icon_shape_summary"
-        android:fragment="com.alpha.settings.fragments.ui.IconShapes"/>
 
 </PreferenceScreen>

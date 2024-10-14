@@ -1,5 +1,6 @@
 /*
- * Copyright (C) 2016-2023 crDroid Android Project
+ * Copyright (C) 2016-2024 crDroid Android Project
+ *               2023-2024 AlphaDroid Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,77 +16,44 @@
  */
 package com.alpha.settings.fragments;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.UserHandle;
+import android.provider.SearchIndexableResource;
 import android.provider.Settings;
 import android.text.TextUtils;
 
 import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
 import androidx.preference.PreferenceScreen;
+import androidx.preference.Preference.OnPreferenceChangeListener;
 
 import com.android.internal.logging.nano.MetricsProto;
+
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settingslib.search.SearchIndexable;
-
-import com.alpha.settings.fragments.misc.SensorBlock;
-import com.alpha.settings.fragments.misc.SmartPixels;
-import com.alpha.settings.fragments.misc.Spoofing;
 
 import java.util.List;
 
 import lineageos.providers.LineageSettings;
 
 @SearchIndexable
-public class Miscellaneous extends SettingsPreferenceFragment implements
-        Preference.OnPreferenceChangeListener {
+public class Miscellaneous extends SettingsPreferenceFragment
+            implements Preference.OnPreferenceChangeListener  {
 
     public static final String TAG = "Miscellaneous";
-
-    private static final String POCKET_JUDGE = "pocket_judge";
-    private static final String KEY_FORCE_FULL_SCREEN = "display_cutout_force_fullscreen_settings";
-    private static final String SMART_PIXELS = "smart_pixels";
-
-    private Preference mPocketJudge;
-    private Preference mShowCutoutForce;
-    private Preference mSmartPixels;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.alpha_settings_misc);
-
-        final PreferenceScreen prefScreen = getPreferenceScreen();
-        final Resources res = getResources();
-
-        mPocketJudge = (Preference) prefScreen.findPreference(POCKET_JUDGE);
-        boolean mPocketJudgeSupported = res.getBoolean(
-                com.android.internal.R.bool.config_pocketModeSupported);
-        if (!mPocketJudgeSupported && mPocketJudge != null) {
-            prefScreen.removePreference(mPocketJudge);
-        }
-
-	    final String displayCutout =
-           res.getString(com.android.internal.R.string.config_mainBuiltInDisplayCutout);
-
-        if (TextUtils.isEmpty(displayCutout)) {
-            mShowCutoutForce = (Preference) findPreference(KEY_FORCE_FULL_SCREEN);
-            if (mShowCutoutForce != null) {
-                prefScreen.removePreference(mShowCutoutForce);
-            }
-        }
-
-        mSmartPixels = (Preference) prefScreen.findPreference(SMART_PIXELS);
-        boolean mSmartPixelsSupported = getResources().getBoolean(
-                com.android.internal.R.bool.config_supportSmartPixels);
-        if (!mSmartPixelsSupported && mSmartPixels != null) {
-            prefScreen.removePreference(mSmartPixels);
-        }
     }
 
     @Override
@@ -95,17 +63,11 @@ public class Miscellaneous extends SettingsPreferenceFragment implements
 
     public static void reset(Context mContext) {
         ContentResolver resolver = mContext.getContentResolver();
-        Settings.System.putIntForUser(resolver,
-                Settings.System.POCKET_JUDGE, 0, UserHandle.USER_CURRENT);
-        Settings.System.putIntForUser(resolver,
-                Settings.System.THREE_FINGER_GESTURE, 0, UserHandle.USER_CURRENT);
-        LineageSettings.System.putIntForUser(resolver,
-                LineageSettings.System.AUTO_BRIGHTNESS_ONE_SHOT, 0, UserHandle.USER_CURRENT);
-        Settings.System.putIntForUser(resolver,
-                Settings.System.CHARGING_ANIMATION, 1, UserHandle.USER_CURRENT);
-        SensorBlock.reset(mContext);
-        SmartPixels.reset(mContext);
-        Spoofing.reset(mContext);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -122,25 +84,6 @@ public class Miscellaneous extends SettingsPreferenceFragment implements
                 @Override
                 public List<String> getNonIndexableKeys(Context context) {
                     List<String> keys = super.getNonIndexableKeys(context);
-                    final Resources res = context.getResources();
-
-                    boolean mPocketJudgeSupported = res.getBoolean(
-                            com.android.internal.R.bool.config_pocketModeSupported);
-                    if (!mPocketJudgeSupported)
-                        keys.add(POCKET_JUDGE);
-
-  	                final String displayCutout =
-                        context.getResources().getString(com.android.internal.R.string.config_mainBuiltInDisplayCutout);
-
-                    if (TextUtils.isEmpty(displayCutout)) {
-                        keys.add(KEY_FORCE_FULL_SCREEN);
-                    }
-
-                    boolean mSmartPixelsSupported = context.getResources().getBoolean(
-                            com.android.internal.R.bool.config_supportSmartPixels);
-                    if (!mSmartPixelsSupported)
-                        keys.add(SMART_PIXELS);
-
                     return keys;
                 }
             };

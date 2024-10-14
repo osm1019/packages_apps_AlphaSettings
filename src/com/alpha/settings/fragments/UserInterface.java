@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016-2024 crDroid Android Project
+ *               2023-2024 AlphaDroid Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,6 +23,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.UserHandle;
+import android.provider.SearchIndexableResource;
 import android.provider.Settings;
 import android.text.TextUtils;
 
@@ -31,17 +33,19 @@ import androidx.preference.PreferenceScreen;
 import androidx.preference.Preference.OnPreferenceChangeListener;
 
 import com.android.internal.logging.nano.MetricsProto;
+
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settingslib.search.SearchIndexable;
 
-import com.alpha.settings.fragments.ui.MonetSettings;
-
 import java.util.List;
 
+import lineageos.providers.LineageSettings;
+
 @SearchIndexable
-public class UserInterface extends SettingsPreferenceFragment {
+public class UserInterface extends SettingsPreferenceFragment
+            implements Preference.OnPreferenceChangeListener  {
 
     public static final String TAG = "UserInterface";
 
@@ -50,12 +54,20 @@ public class UserInterface extends SettingsPreferenceFragment {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.alpha_settings_ui);
-
     }
 
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object newValue) {
+        return false;
+    }
 
     public static void reset(Context mContext) {
-        MonetSettings.reset(mContext);
+        ContentResolver resolver = mContext.getContentResolver();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

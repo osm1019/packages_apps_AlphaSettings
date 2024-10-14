@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
      Copyright (C) 2016-2024 crDroid Android Project
+                   2023-2024 AlphaDroid Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -19,113 +20,5 @@
     xmlns:lineage="http://schemas.android.com/apk/res-auto"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
     android:title="@string/sound_title">
-
-    <!-- Pulse music visualizer -->
-    <Preference
-        android:key="pulse_settings"
-        android:icon="@drawable/ic_pulse"
-        android:title="@string/pulse_settings"
-        android:summary="@string/pulse_settings_summary"
-        android:fragment="com.alpha.settings.fragments.sound.PulseSettings" />
-
-    <!-- System Haptics intensities preference -->
-    <Preference
-        android:key="haptics_settings"
-        android:title="@string/haptics_settings_title"
-        android:icon="@drawable/ic_cellphone_sound"
-        android:summary="@string/haptics_settings_summary"
-        android:fragment="com.alpha.settings.fragments.sound.HapticsPreferenceFragment"/>
-
-    <!-- Volume steps -->
-    <Preference
-        android:key="volume_steps"
-        android:icon="@drawable/ic_settings_sound"
-        android:title="@string/volume_steps_title"
-        android:summary="@string/volume_steps_summary"
-        android:fragment="com.alpha.settings.fragments.sound.VolumeSteps" />
-
-    <!-- Volume panel styles -->
-    <Preference
-        android:key="android.theme.customization.volume_style"
-        android:icon="@drawable/ic_settings_sound"
-        android:title="@string/theme_customization_volume_panel_styles_title"
-        android:summary="@string/theme_customization_volume_panel_styles_summary"
-        android:fragment="com.alpha.settings.fragments.sound.VolumePanelStyles" />
-
-    <!-- Screenshot Sound  -->
-    <com.alpha.settings.preferences.SystemSettingSwitchPreference
-        android:key="screenshot_shutter_sound"
-        android:icon="@drawable/ic_cellphone_sound"
-        android:title="@string/screenshot_shutter_sound_title"
-        android:summary="@string/screenshot_shutter_sound_summary"
-        android:defaultValue="true" />
-
-    <!-- Adaptive Playback -->
-    <Preference
-        android:key="adaptive_playback_settings"
-        android:icon="@drawable/ic_settings_sound"
-        android:title="@string/adaptive_playback_title"
-        android:summary="@string/adaptive_playback_summary"
-        android:fragment="com.alpha.settings.fragments.sound.AdaptivePlayback" />
-
-    <!-- Volume panel -->
-    <PreferenceCategory
-        android:key="volume_panel"
-        android:title="@string/volume_panel_category" >
-
-        <lineageos.preference.LineageSecureSettingSwitchPreference
-            android:key="volume_panel_on_left"
-            android:icon="@drawable/ic_settings_sound"
-            android:title="@string/volume_panel_on_left_title" />
-
-
-        <com.alpha.settings.preferences.SecureSettingSwitchPreference
-            android:key="volume_show_volume_percent"
-            android:icon="@drawable/ic_percent"
-            android:title="@string/volume_show_volume_percent_title"
-            android:summary="@string/volume_show_volume_percent_summary"
-            android:defaultValue="true"/>
-
-        <com.alpha.settings.preferences.SecureSettingSwitchPreference
-            android:key="volume_show_media_button"
-            android:icon="@drawable/ic_media_output"
-            android:title="@string/volume_show_media_button_title"
-            android:summary="@string/volume_show_media_button_summary"
-            android:defaultValue="true"/>
-
-        <com.alpha.settings.preferences.SecureSettingSeekBarPreference
-            android:key="volume_dialog_dismiss_timeout"
-            android:icon="@drawable/ic_music_note"
-            android:title="@string/volume_dialog_timeout_title"
-            android:defaultValue="3000"
-            android:max="10000"
-            settings:min="1000"
-            settings:interval="500"
-            settings:units="@string/unit_milliseconds" />
-    </PreferenceCategory>
-
-    <!-- In-call feedback -->
-    <PreferenceCategory
-        android:key="incall_vib_options"
-        android:title="@string/incall_vibration_category" >
-
-        <com.alpha.settings.preferences.SystemSettingSwitchPreference
-            android:key="vibrate_on_connect"
-            android:icon="@drawable/ic_vibrate"
-            android:title="@string/incall_vibrate_connect_title"
-            android:defaultValue="false" />
-
-        <com.alpha.settings.preferences.SystemSettingSwitchPreference
-            android:key="vibrate_on_callwaiting"
-            android:icon="@drawable/ic_vibrate"
-            android:title="@string/incall_vibrate_call_wait_title"
-            android:defaultValue="false" />
-
-        <com.alpha.settings.preferences.SystemSettingSwitchPreference
-            android:key="vibrate_on_disconnect"
-            android:icon="@drawable/ic_vibrate"
-            android:title="@string/incall_vibrate_disconnect_title"
-            android:defaultValue="false" />
-    </PreferenceCategory>
 
 </PreferenceScreen>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2016-2022 crDroid Android Project
-     Copyright (C) 2023 AlphaDroid
+     Copyright (C) 2016-2022 AlphaDroid Android Project
+     Copyright (C) 2023-2024 AlphaDroid Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -17,52 +17,108 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <!-- Preference categories -->
-    <string name="preference_category_brightness">Brightness</string>
-    <string name="preference_category_battery">Battery</string>
-    <string name="preference_category_style">Style</string>
-    <string name="preference_category_clock">Clock</string>
+    <!-- General strings -->
+    <string name="string_ok">OK</string>
+    <string name="string_reset">Reset</string>
+    <string name="string_cancel">Cancel</string>
+    <string name="string_save">Save</string>
+    <string name="string_discard_changes">Discard changes</string>
+    <string name="string_never">Never</string>
+    <string name="string_always">Always</string>
+    <string name="string_caution">Caution</string>
+    <string name="string_delete">Delete</string>
+    <string name="string_delete_message">Remove selected item?</string>
+    <string name="string_choose_app">Choose app</string>
+    <string name="string_enable">Enable</string>
+    <string name="string_disable">Disable</string>
+    <string name="string_on">On</string>
+    <string name="string_off">Off</string>
 
-    <!-- Settings dashboard style -->
-    <string name="settings_dashboard_style_title">Settings style</string>
-    <string name="settings_dashboard_style_summary">Settings homepage and AlphaSettings style</string>
-    <string name="settings_dashboard_style_aosp">AOSP</string>
-    <string name="settings_dashboard_style_dot">DoT</string>
-    <string name="settings_dashboard_style_nad">NAD</string>
-
-    <!-- Max visible notification icons -->
-    <string name="max_visible_notification_icons_title">Notification icons</string>
-    <string name="max_visible_notification_icons_summary">Max. notification icons visible on statusbar</string>
-
-    <!-- Status bar padding -->
-    <string name="statusbar_padding">Status bar paddings</string>
-    <string name="statusbar_top_padding">Top padding</string>
-    <string name="statusbar_left_padding">Left padding</string>
-    <string name="statusbar_right_padding">Right padding</string>
-
-    <!-- Quicksettings media category -->
-    <string name="media_category">Media player</string>
-
-    <!-- Squiggle animation -->
-    <string name="show_squiggle_animation_title">Show squiggle animation</string>
-    <string name="show_squiggle_animation_summary">Show media panel squiggle animation\nAfter change need to switch music, pause music or move the progress bar to apply</string>
-
-    <!-- UI styles -->
-    <string name="theme_customization_ui_style_title">UI Style</string>
-    <string name="theme_customization_ui_style_summary">Set custom style for your interface</string>
-
-    <!-- QS haptic feedback -->
-    <string name="qs_haptic_feedback_title">QS haptic feedback</string>
-    <string name="qs_haptic_feedback_summary">Vibrate when touching QS tiles</string>
-
-    <!--  Alpha settings -->
+     <!--  Alpha settings -->
     <string name="alpha_settings_title">Alpha settings</string>
     <string name="alpha_settings_summary">There will be goodies!</string>
 
-    <!-- UiBench -->
-    <string name="category_uibench">UiBench</string>
-    <string name="jitter_test_title">Jitter</string>
-    <string name="jitter_test_summary">Calculate rendering jitter</string>
+    <!-- Personalization Categories -->
+    <string name="button_title">Buttons</string>
+    <string name="lockscreen_title">Lock Screen</string>
+    <string name="misc_title">Miscellaneous</string>
+    <string name="navigation_title">Navigation</string>
+    <string name="notifications_title">Notifications</string>
+    <string name="quicksettings_title">Quick Settings</string>
+    <string name="sound_title">Sound</string>
+    <string name="statusbar_title">Status Bar</string>
+    <string name="display_title">Display</string>
+    <string name="ui_title">User Interface</string>
+
+    <!-- Color Picker -->
+    <string name="dialog_color_picker">Color Picker</string>
+    <string name="press_color_to_apply">Press on color below to apply</string>
+    <string name="arrow_right" translatable="false">→</string>
+    <string name="arrow_down" translatable="false">↓</string>
+    <string name="hex" translatable="false">Hex:</string>
+    <string name="hex_hint" translatable="false">#ff000000</string>
+    <string name="set">Set</string>
+    <string name="color_default">Default</string>
+
+    <!-- Changelog -->
+    <string name="changelog_title">Current changelog</string>
+    <string name="changelog_summary">View changes in the ROM installed</string>
+    <string name="changelog_error">Unable to load changelog</string>
+
+    <!-- About AlphaDroid -->
+    <string name="about_alpha">About AlphaDroid</string>
+    <string name="about_device_name">Device</string>
+
+    <!-- Share AlphaDroid -->
+    <string name="share_title">Share AlphaDroid</string>
+    <string name="share_summary">Let others know about AlphaDroid</string>
+    <string name="share_message">Check out if #AlphaDroidAndroid is available for your device @ https://sourceforge.net/projects/alphadroid-project/files</string>
+    <string name="share_chooser_title">Share AlphaDroid</string>
+
+    <!-- Sites AlphaDroid -->
+    <string name="source_title">GitHub</string>
+    <string name="source_summary">We love open source, check us out</string>
+    <string name="telegram_title">AlphaDroid community</string>
+    <string name="telegram_summary">We are on telegram. Join us!</string>
+    <string name="telegram_channel_title">Updates channel</string>
+    <string name="telegram_channel_summary">Get notified of new builds on Telegram</string>
+    <string name="website_title">Official website</string>
+    <string name="website_summary">Visit our official website</string>
+    <string name="translate_title">Translations</string>
+    <string name="translate_summary">Help with localisation of ROM in your language!</string>
+    <string name="sponsor_title" translatable="false">ScopeHosts</string>
+    <string name="sponsor_summary">Visit our website host partner</string>
+    <string name="buildserversponsor_title" translatable="false">InterServer</string>
+    <string name="buildserversponsor_summary">We recommend their servers if interested in one</string>
+
+    <!-- Donate AlphaDroid -->
+    <string name="donate_title">Support us</string>
+    <string name="donate_summary">Donate to support further development</string>
+    <string name="donate_team_title">AlphaDroid team</string>
+    <string name="donate_team_summary">Donate to support server hosting, site uptime and overall management</string>
+
+    <!-- OTA -->
+    <string name="alpha_update_title">Updates</string>
+    <string name="alpha_update_summary">Check and download latest update</string>
+
+    <!-- App details: open play store link if app is user installed -->
+    <string name="app_play_store">Google Play</string>
+
+    <!-- Custom seekbar -->
+    <string name="custom_seekbar_value">Value: <xliff:g id="v">%s</xliff:g></string>
+    <string name="custom_seekbar_default_value">by default</string>
+    <string name="custom_seekbar_default_value_to_set">Default value: <xliff:g id="v">%s</xliff:g>\nLong tap to set</string>
+    <string name="custom_seekbar_default_value_is_set">Default value is set</string>
+
+    <!-- Units -->
+    <string name="unit_seconds">seconds</string>
+    <string name="unit_milliseconds">milliseconds</string>
+    <string name="unit_pixels" translatable="false">dp</string>
+    <string name="unit_hz" translatable="false">hz</string>
+
+    <!-- Clipboard -->
+    <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="longpress_to_clipboard">Long-press to copy</string>
 
     <!-- SELinux status -->
     <string name="selinux_status">SELinux status</string>
@@ -80,287 +136,72 @@
     <string name="build_status_summary">Unofficial</string>
     <string name="build_status_official">Official</string>
     <string name="build_status_unofficial">Unofficial</string>
+    <string name="alpha_build_version">AlphaDroid version</string>
+    <string name="alpha_build_date">Build date</string>
 
     <!-- Maintainer -->
     <string name="maintainer_title">Maintainer</string>
     <string name="maintainer_summary">Searching for maintainer...</string>
 
-    <!-- Ignore window secure -->
-    <string name="ignore_window_secure_title">Ignore secure window flag</string>
-    <string name="ignore_window_secure_summary">Remove screenshot and screenrecord limits for all apps. This can be convenient in some cases but may lead to privacy leaks.</string>
+    <!-- About phone cards -->
+    <string name="storage_card_title">Storage</string>
+    <string name="storage_card_info">Occupied</string>
+    <string name="about_device_rom_title">Android %s</string>
+    <string name="about_device_nearby">The device name can and will be seen by the nearby devices.</string>
 
-    <!-- Hide developer status -->
-    <string name="hide_developer_status_title">Hide developer status</string>
-    <string name="hide_developer_status_summary">Hide developer status from apps</string>
-    <string name="search">Search</string>
-    <string name="search_apps">Search apps</string>
+    <!-- App Title -->
+    <string name="reset_settings_title">Reset settings</string>
+    <string name="reset_settings_message">This will reset most AlphaDroid settings to their default values for the current user. Would you like to continue?</string>
 
-    <!-- QS panel styles -->
-    <string name="theme_customization_qs_style_title">QS Panel style</string>
-    <string name="theme_customization_qs_style_summary">Set custom QS Panel style</string>
+    <!-- Timeouts -->
+    <string name="custom_timeout_summary_never">Never</string>
+    <string name="custom_timeout_summary_5secs">5 seconds</string>
+    <string name="custom_timeout_summary_10secs">10 seconds</string>
+    <string name="custom_timeout_summary_15secs">15 seconds</string>
+    <string name="custom_timeout_summary_30secs">30 seconds</string>
+    <string name="custom_timeout_summary_1min">1 minute</string>
+    <string name="custom_timeout_summary_2mins">2 minutes</string>
+    <string name="custom_timeout_summary_5mins">5 minutes</string>
+    <string name="custom_timeout_summary_10mins">10 minutes</string>
+    <string name="custom_timeout_summary_20mins">20 minutes</string>
+    <string name="custom_timeout_summary_30mins">30 minutes</string>
+    <string name="custom_timeout_summary_1hour">1 hour</string>
+    <string name="custom_timeout_summary_2hours">2 hours</string>
+    <string name="custom_timeout_summary_4hours">4 hours</string>
+    <string name="custom_timeout_summary_8hours">8 hours</string>
+    <string name="custom_timeout_summary_12hours">12 hours</string>
+    <string name="custom_timeout_summary_24hours">24 hours</string>
+    <string name="custom_timeout_summary_36hours">36 hours</string>
+    <string name="custom_timeout_summary_48hours">48 hours</string>
+    <string name="custom_timeout_summary_72hours">72 hours</string>
 
-    <!-- Brightness bar styles -->
-    <string name="theme_customization_brightness_bar_title">Brightness bar style</string>
-    <string name="theme_customization_brightness_bar_summary">Set custom brightness bar style</string>
+    <!-- App lock -->
+    <string name="app_lock_title">App lock</string>
+    <plurals name="app_lock_summary">
+        <item quantity="one"><xliff:g example="1" id="Number of applications">%1$d</xliff:g> application is protected</item>
+        <item quantity="other"><xliff:g example="10" id="Number of applications">%1$d</xliff:g> applications are protected</item>
+    </plurals>
+    <string name="app_lock_authentication_dialog_title">Unlock</string>
+    <string name="enable_debugging">Enable debugging</string>
+    <string name="disable_debugging">Disable debugging</string>
+    <string name="app_lock_packages_title">Protected apps</string>
+    <string name="app_lock_packages_summary">Select the apps to protect with biometrics or device credentials</string>
+    <string name="app_lock_timeout_title">Auto lock timeout</string>
+    <string name="app_lock_timeout_summary">Duration of time after which an unlocked app in background should be locked</string>
+    <string name="app_lock_notifications_title">Redact notifications</string>
+    <string name="app_lock_notifications_summary">Notification content will be hidden and collapsed for selected apps when they are locked. Heads up notifications will be automatically disabled.</string>
+    <string name="app_lock_notifications_disabled_summary">Protect an application first</string>
+    <string name="app_lock_biometrics_allowed_title">Enable biometrics for unlocking</string>
+    <string name="app_lock_footer_text">Bubbles will be automatically dismissed after timeout</string>
+    <string name="enable_protection">Enable protection</string>
+    <string name="hide_from_launcher_title">Hide from launcher</string>
+    <string name="hide_from_launcher_summary">Prevent this application from showing up in any launcher. Requires a launcher restart for changes to take effect.</string>
 
-    <!-- Notifications style -->
-    <string name="theme_customization_notifications_title">Notifications style</string>
-    <string name="theme_customization_notifications_summary">Set custom notifications style</string>
-
-    <!-- Volume panel styles -->
-    <string name="theme_customization_volume_panel_styles_title">Volume panel style</string>
-    <string name="theme_customization_volume_panel_styles_summary">Set custom volume panel style</string>
-
-    <!-- Force LTE_CA -->
-    <string name="force_lte_ca">Force LTE CA</string>
-    <string name="force_lte_ca_summary">Force LTE carrier aggregation to work</string>
-
-    <!-- Smart 5G -->
-    <string name="smart_5g_title">Smart 5G</string>
-    <string name="smart_5g_summary">Automatically switch between 5G and 4G to reduce battery consumption</string>
-
-    <!-- Custom Data icons -->
-    <string name="theme_customization_data_title">Data icon style</string>
-    <string name="theme_customization_data_summary">Set custom data icon style</string>
-
-    <!-- Generic support strings -->
-    <string name="string_enabled">Enabled</string>
-    <string name="string_disabled">Disabled</string>
-    <string name="string_on">On</string>
-    <string name="string_off">Off</string>
-
-    <!-- Fastcharge -->
-    <string name="restricted_current_summary">Set max allowed current (mA)</string>
-    <string name="fastcharge_disabled_extended_summary">Charge limited to: <xliff:g id="current" example="3000 mA">%1$s</xliff:g>.</string>
-
-    <!-- USB configuration -->
-    <string name="usb_default_config_title">USB configuration</string>
-    <string name="usb_default_config_summary">Choose the default USB configuration</string>
-
-    <!-- Text Brightness -->
-    <string name="bb_show_percentage_title">Brightness percentage</string>
-    <string name="bb_show_percentage_summary">Show brightness percentage text in brightness bar</string>
-
-    <!-- AOD Schedule -->
-    <string name="always_on_display_schedule_title">Always on display schedule</string>
-    <string name="always_on_display_schedule_sunset">Sunset</string>
-    <string name="always_on_display_schedule_sunrise">Sunrise</string>
-    <string name="always_on_display_schedule_mixed_sunset">Turns on from sunset till a time</string>
-    <string name="always_on_display_schedule_mixed_sunrise">Turns on from a time till sunrise</string>
-
-    <!-- Ambient wake toggles -->
-    <string name="doze_gesture_ambient_title">Show Ambient</string>
-    <string name="doze_gesture_ambient_summary">Show Ambient Display instead of fully waking the screen up</string>
-    <string name="gesture_wake_ambient">Show Ambient</string>
-    <string name="gesture_wake">Fully wake</string>
-
-    <!-- Doze enablement -->
-    <string name="doze_enabled_title">Ambient display</string>
-    <string name="doze_enabled_summary">Whether to enable the doze package functionality</string>
-
-    <!-- Doze on double tap -->
-    <string name="double_tap_title">Double tap</string>
-    <string name="doze_double_tap_title">Double tap to check phone</string>
-    <string name="doze_double_tap_summary">Pulse notifications by a double tap</string>
-
-    <!-- Pixel battery usage chart -->
-    <string name="advanced_battery_preference_summary_google">Use Pixel Battery usage chart</string>
-
-    <!-- Haptics Settings -->
-    <string name="haptics_settings_title">System haptics</string>
-    <string name="haptics_settings_summary">Modify system haptics intensities</string>
-    <string name="back_gesture_haptic_intensity_title">Back gesture haptics intensity</string>
-    <string name="brightness_slider_haptics_intensity_title">Brightness slider haptics intensity</string>
-    <string name="edge_scrolling_haptics_intensity_title">Edge scrolling haptics intensity</string>
-    <string name="volume_slider_haptics_intensity_title">Volume slider haptics intensity</string>
-
-    <!-- Misc categories -->
-    <string name="sensors_category_title">Sensors</string>
-    <string name="animations_category_title">Animations</string>
-
-    <!-- Spoof storage encryption status -->
-    <string name="spoof_storage_encryption_status_title">Use storage encryption spoofing</string>
-    <string name="spoof_storage_encryption_status_summary">Spoof storage encryption status to encrypted</string>
-
-    <!-- Idle Manager -->
-    <string name="idle_manager_title">Idle Manager</string>
-    <string name="idle_manager_summary">Stop all non-essential background processes when the device is idle</string>
-
-    <!-- Sleep Mode -->
-    <string name="sleep_mode_title">Sleep Mode</string>
-    <string name="sleep_mode_summary_on">On / <xliff:g name="auto_mode_summary" example="Never turn off automatically">%1$s</xliff:g></string>
-    <string name="sleep_mode_summary_off">Off / <xliff:g name="auto_mode_summary" example="Never turn on automatically">%1$s</xliff:g></string>
-    <string name="sleep_mode_ringer_title">Ringer mode</string>
-    <string name="sleep_mode_ringer_off_title">Do not change</string>
-    <string name="sleep_mode_ringer_vibrate_title">Vibrate</string>
-    <string name="sleep_mode_ringer_dnd_title">Do Not Disturb</string>
-    <string name="sleep_mode_ringer_silent_title">Silent</string>
-    <string name="sleep_mode_schedule_sunset">Sunset</string>
-    <string name="sleep_mode_schedule_sunrise">Sunrise</string>
-    <string name="sleep_mode_schedule_mixed_sunset">Turns on from sunset to a custom time</string>
-    <string name="sleep_mode_schedule_mixed_sunrise">Turns on from a custom time to sunrise</string>
-    <string name="sleep_mode_toggles_title">Toggles</string>
-    <string name="sleep_mode_wifi_toggle_title">Turn off Wi-Fi</string>
-    <string name="sleep_mode_wifi_toggle_summary">Disable Wi-Fi when Sleep mode is turned on</string>
-    <string name="sleep_mode_bluetooth_toggle_title">Turn off Bluetooth</string>
-    <string name="sleep_mode_bluetooth_toggle_summary">Disable Bluetooth when Sleep mode is turned on</string>
-    <string name="sleep_mode_cellular_toggle_title">Turn off Mobile data</string>
-    <string name="sleep_mode_cellular_toggle_summary">Disable Mobile data when Sleep mode is turned on</string>
-    <string name="sleep_mode_location_toggle_title">Turn off Location</string>
-    <string name="sleep_mode_location_toggle_summary">Disable Location when Sleep mode is turned on</string>
-    <string name="sleep_mode_sensors_toggle_title">Turn off Sensors</string>
-    <string name="sleep_mode_sensors_toggle_summary">Disable Sensors when Sleep mode is turned on</string>
-    <string name="sleep_mode_display_text">Sleep mode allows you to disable certain services to help save battery and silence your phone while you sleep.</string>
-    <!-- Display settings screen, activation button action for manual mode. [CHAR LIMIT=40] -->
-    <string name="night_display_activation_on_manual">Turn on now</string>
-    <!-- Display settings screen, deactivation button action for manual mode. [CHAR LIMIT=40] -->
-    <string name="night_display_activation_off_manual">Turn off now</string>
-    <!-- Display settings screen, activation button action for sunset-to-sunrise schedule [CHAR LIMIT=40] -->
-    <string name="night_display_activation_on_twilight">Turn on until sunrise</string>
-    <!-- Display settings screen, deactivation button action for sunset-to-sunrise schedule [CHAR LIMIT=40] -->
-    <string name="night_display_activation_off_twilight">Turn off until sunset</string>
-    <!-- Display settings screen, activation button action for custom schedule [CHAR LIMIT=40] -->
-    <string name="night_display_activation_on_custom">Turn on until <xliff:g name="time" example="6 AM">%1$s</xliff:g></string>
-    <!-- Display settings screen, deactivation button action for custom schedule [CHAR LIMIT=40] -->
-    <string name="night_display_activation_off_custom">Turn off until <xliff:g name="time" example="10 PM">%1$s</xliff:g></string>
-
-    <!-- Refresh rate -->
-    <string name="refresh_rate_title">Refresh rate</string>
-    <string name="refresh_rate_summary_vrr_off">%d Hz</string>
-    <string name="refresh_rate_summary_vrr_on">%d Hz (Adaptive)</string>
-    <string name="refresh_rate_vrr_title">Adaptive refresh rate</string>
-    <string name="refresh_rate_vrr_summary">Automatically lower the refresh rate when the display is idle, to save power. May cause flickering or color shift on certain displays</string>
-    <string name="refresh_rate_footer">A higher refresh rate makes the display smoother, but increases power consumption</string>
-    <string name="keywords_refresh_rate">refresh, rate, smooth, peak, 60hz, 90hz, 120hz, 144hz, 165hz</string>
-
-    <!-- Battery Info: Technology -->
-    <string name="battery_technology">Technology</string>
-    <string name="battery_technology_not_available" translatable="false">@string/battery_cycle_count_not_available</string>
-
-    <!-- Battery Info: Health -->
-    <string name="battery_health">Health</string>
-    <string name="battery_health_good">Good</string>
-    <string name="battery_health_overheat">Overheat</string>
-    <string name="battery_health_dead">Dead</string>
-    <string name="battery_health_over_voltage">Over voltage</string>
-    <string name="battery_health_unspecified_failure">Unspecified failure</string>
-    <string name="battery_health_cold">Cold</string>
-    <string name="battery_health_unknown">Unknown</string>
-
-    <!-- Battery Info: Temperature -->
-    <string name="battery_temperature_not_available" translatable="false">@string/battery_cycle_count_not_available</string>
-
-    <!-- Battery Info: Voltage -->
-    <string name="battery_voltage">Voltage</string>
-    <string name="battery_voltage_not_available" translatable="false">@string/battery_cycle_count_not_available</string>
-
-    <!-- Battery Info: Charge Counter -->
-    <string name="battery_charge_counter_summary">%1$d mAh</string>
-
-    <!-- Battery Info: Design Capacity -->
-    <string name="battery_design_capacity">Design capacity</string>
-    <string name="battery_design_capacity_summary" translatable="false">%1$d mAh</string>
-    <string name="battery_design_capacity_not_available" translatable="false">@string/battery_cycle_count_not_available</string>
-
-    <!-- Battery Info: Maximum Capacity -->
-    <string name="battery_maximum_capacity">Maximum capacity</string>
-    <string name="battery_maximum_capacity_summary" translatable="false">%1$d mAh (%2$d%%)</string>
-    <string name="battery_maximum_capacity_not_available" translatable="false">@string/battery_cycle_count_not_available</string>
-
-    <!-- Compact QS Media Player-->
-    <string name="qs_compact_media_player_mode_title">Compact QS Media player</string>
-    <string name="qs_compact_media_player_mode_summary">Enable compact mode for QuickSettings media player</string>
-
-    <!-- Shake Gestures -->
-    <string name="shake_gestures_enabled_title">Shake Gestures</string>
-    <string name="shake_gestures_enabled_summary">Shake your device to perform actions</string>
-    <string name="shake_gestures_action_title">Shake Gestures Actions</string>
-    <string name="shake_gestures_toggle_flashlight">Toggle Flashlight</string>
-    <string name="shake_gestures_media_playback">Play/Skip Media</string>
-    <string name="shake_gestures_volume_panel">Show Volume Panel</string>
-    <string name="shake_gestures_screen_wake">Turn Screen On/Off</string>
-    <string name="shake_gestures_clear_notifs">Clear All Notifications</string>
-    <string name="shake_gestures_toggle_ringer">Toggle Ringer Mode</string>
-    <string name="shake_gestures_screenshot">Take Screenshot</string>
-    <string name="shake_gestures_intensity_title">Shake Gestures Intensity</string>
-    <string name="shake_gestures_intensity_summary">Adjust the sensitivity of shake gestures</string>
-
-    <!-- Three Finger Swipe Gestures -->
-    <string name="three_finger_gesture_action_title">Three Finger Swipe Gestures</string>
-    <string name="three_finger_gesture_action_dialog_title">Swipe Three Finger Gestures Actions</string>
-
-    <!-- Volume Row Percent -->
-    <string name="volume_show_volume_percent_title">Show Volume Row Percentage</string>
-    <string name="volume_show_volume_percent_summary">Show volume row progress percentage</string>
-
-    <!-- Volume Media Button -->
-    <string name="volume_show_media_button_title">Volume media button</string>
-    <string name="volume_show_media_button_summary">Show media output switcher button into volume dialog</string>
-
-    <!-- QS split shade -->
-    <string name="qs_split_shade_title">Split Shade</string>
-    <string name="qs_split_shade_summary">Split QS layout in landscape mode</string>
-
-    <!-- Spoofing -->
-    <string name="spoofing_pref">Spoofing</string>
-    <string name="spoofing_title">Component spoofing</string>
-    <string name="spoofing_summary">Bypass app restrictions by spoofing components</string>
-    <string name="spoofing_system_wide_category">System-Wide</string>
-    <string name="spoofing_pif_toggle_title">Play Integrity fix</string>
-    <string name="spoofing_pif_toggle_summary">Use the ROM\'s built-in Play Integrity fix values</string>
-    <string name="spoofing_pixel_props_title">Pixel props</string>
-    <string name="spoofing_pixel_props_summary">Spoof the device as a Pixel 8 Pro for all Google apps</string>
-    <string name="spoofing_storage_encryption_title">Storage encryption</string>
-    <string name="spoofing_storage_encryption_summary">Spoof the device storage encryption status to \'Encrypted\'</string>
-    <string name="spoofing_app_specific_category">App-Specific</string>
-    <string name="spoofing_photos_title">Google Photos spoof</string>
-    <string name="spoofing_photos_summary">Spoof the device as Pixel XL for Google Photos to unlock unlimited image backup</string>
-    <string name="spoofing_games_title">Higher FPS in games</string>
-    <string name="spoofing_games_summary">Spoof the device as different models for select games to unlock higher FPS</string>
-    <string name="spoofing_snapchat_title">Snapchat spoof</string>
-    <string name="spoofing_snapchat_summary">Spoof the device as Pixel 2 for Snapchat to allow original quality captures</string>
-    <string name="spoofing_load_json_title">Select spoofing JSON File</string>
-    <string name="spoofing_load_json_summary">Pick JSON file to be used for spoofing play integrity</string>
-
-    <!-- Pif spoofing info -->
-    <string name="spoofing_pif_values_title">Play Integrity fix values</string>
-    <string name="spoofing_pif_values_summary">View current values used to spoof GMS for Play Integrity API certification</string>
-    <string name="spoofing_pif_manufacturer_title">Manufacturer</string>
-    <string name="spoofing_pif_model_title">Model</string>
-    <string name="spoofing_pif_fingerprint_title">Fingerprint</string>
-    <string name="spoofing_pif_brand_title">Brand</string>
-    <string name="spoofing_pif_product_title">Product</string>
-    <string name="spoofing_pif_device_title">Device</string>
-    <string name="spoofing_pif_release_title">Release</string>
-    <string name="spoofing_pif_id_title">ID</string>
-    <string name="spoofing_pif_incremental_title">Incremental</string>
-    <string name="spoofing_pif_type_title">Type</string>
-    <string name="spoofing_pif_tags_title">Tags</string>
-    <string name="spoofing_pif_security_patch_title">Security patch</string>
-    <string name="spoofing_pif_initial_sdk_title">Shipping API level</string>
-
-    <!-- No storage restrict -->
-    <string name="no_storage_restrict_title">No storage restrict</string>
-    <string name="no_storage_restrict_summary">Remove the restriction when selecting folders through Storage Access Framework. Can be convenient in some cases but may lead to privacy leaks.</string>
-
-    <!-- Battery styles (extra) -->
-    <string name="status_bar_battery_percent_text_next_right">Next to the icon (right)</string>
-    <string name="status_bar_battery_percent_text_next_left">Next to the icon (left)</string>
-    <string name="status_bar_battery_text_charging_title">Battery percentage when charging</string>
-    <string name="status_bar_battery_text_charging_summary">Always display battery percentage when charging</string>
-    <string name="status_bar_battery_style_icon_rlandscape_style_a">Landscape R Style A</string>
-    <string name="status_bar_battery_style_icon_landscape_style_a">Landscape L Style A</string>
-    <string name="status_bar_battery_style_icon_rlandscape_style_b">Landscape R Style B</string>
-    <string name="status_bar_battery_style_icon_landscape_style_b">Landscape L Style B</string>
-    <string name="status_bar_battery_style_icon_landscape_pill">Portrait Mx</string>
-    <string name="status_bar_battery_style_icon_landscape_line">Landscape Lorn</string>
-    <string name="status_bar_battery_style_icon_landscape_musku">Portrait IOS</string>
-    <string name="status_bar_battery_style_icon_landscape_signal">Landscape Airoo</string>
-    <string name="status_bar_battery_style_icon_landscape_buddy">Landscape Capsule</string>
-    <string name="status_bar_battery_style_icon_landscape_ios15">Landscape iOS 15</string>
-    <string name="status_bar_battery_style_icon_landscape_ios16">Landscape iOS 16</string>
-    <string name="status_bar_battery_style_icon_landscape_origami">Landscape Origami</string>
-    <string name="status_bar_battery_style_icon_landscape_miui_pill">Landscape MiUI Pill</string>
-    <string name="status_bar_battery_style_icon_landscape_ios16a">Landscape iOS 16 Colored</string>
+    <!-- QuickSwitch -->
+    <string name="quickswitch_launcher_title">AlphaDroid launcher</string>
+    <string name="quickswitch_launcher_summary">Change AlphaDroid built-in launcher</string>
+    <string name="quickswitch_launcher3">Launcher3</string>
+    <string name="quickswitch_nexuslauncher">Nexus Launcher</string>
+    <string name="quickswitch_lawnchair">Lawnchair</string>
 
 </resources>
