@@ -18,6 +18,11 @@
     android:title="@string/monet_settings_title"
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings">
 
+    <com.android.settingslib.widget.LayoutPreference
+        android:key="monet_preview"
+        android:layout="@layout/monet_preview"
+        android:selectable="false"/>
+
     <ListPreference
         android:key="theme_style"
         android:title="@string/theme_style_title"
