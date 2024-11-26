@@ -47,7 +47,7 @@ import java.util.List;
 import java.util.Arrays;
 public class DeviceUtils {
 
-    private static final String DEVICE = "ro.voltage.device";
+    private static final String DEVICE = "ro.alpha.device";
 
     /* returns whether the device has a centered display cutout or not. */
     public static boolean hasCenteredCutout(Context context) {
