@@ -69,6 +69,13 @@
             android:defaultValue="true"
             android:dependency="lockscreen_weather_enabled" />
 
+        <com.alpha.settings.preferences.SecureSettingSwitchPreference
+            android:key="lockscreen_smartspace_enabled"
+            android:icon="@drawable/ic_weather"
+            android:title="@string/lockscreen_smartspace_title"
+            android:summary="@string/lockscreen_smartspace_summary"
+            android:defaultValue="true" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
