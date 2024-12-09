@@ -213,4 +213,7 @@
     <string name="quickswitch_nexuslauncher">Nexus Launcher</string>
     <string name="quickswitch_lawnchair">Lawnchair</string>
 
+    <!-- Search bar -->
+    <string name="search_bar_text">search</string>
+
 </resources>
