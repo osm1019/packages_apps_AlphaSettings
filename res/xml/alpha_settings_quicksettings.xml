@@ -21,4 +21,22 @@
     xmlns:lineage="http://schemas.android.com/apk/res-auto"
     android:title="@string/quicksettings_title">
 
+    <com.alpha.settings.preferences.SystemSettingSwitchPreference
+        android:key="qs_dual_tone"
+        android:icon="@drawable/ic_color_bucket"
+        android:title="@string/qs_dual_tone_title"
+        android:summary="@string/qs_dual_tone_summary"
+        android:defaultValue="true" />
+
+    <com.alpha.settings.preferences.SystemSettingSeekBarPreference
+        android:key="qs_transparency"
+        android:icon="@drawable/ic_color_bucket"
+        android:title="@string/qs_opacity_title"
+        android:summary="@string/qs_opacity_summary"
+        android:defaultValue="100"
+        settings:interval="1"
+        settings:units="%"
+        android:max="100"
+        android:min="1" />
+
 </PreferenceScreen>
