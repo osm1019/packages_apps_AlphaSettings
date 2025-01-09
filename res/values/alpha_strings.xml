@@ -282,5 +282,7 @@
     <string name="qs_brightness_slider_position_title">Position</string>
     <string name="qs_brightness_slider_position_top">Top</string>
     <string name="qs_brightness_slider_position_bottom">Bottom</string>
+    <string name="qs_show_brightness_percentage_title">Brightness percentage</string>
+    <string name="qs_show_brightness_percentage_summary">Show brightness percentage text along with the slider</string>
 
 </resources>

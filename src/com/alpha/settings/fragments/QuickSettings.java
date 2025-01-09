@@ -49,10 +49,12 @@ public class QuickSettings extends SettingsPreferenceFragment
     private static final String KEY_SHOW_BRIGHTNESS_SLIDER = "qs_show_brightness_slider";
     private static final String KEY_BRIGHTNESS_SLIDER_POSITION = "qs_brightness_slider_position";
     private static final String KEY_SHOW_AUTO_BRIGHTNESS = "qs_show_auto_brightness";
+    private static final String KEY_SHOW_BRIGHTNESS_PERCENTAGE = "qs_show_brightness_percentage";
 
     private ListPreference mShowBrightnessSlider;
     private ListPreference mBrightnessSliderPosition;
     private SwitchPreferenceCompat mShowAutoBrightness;
+    private SwitchPreferenceCompat mShowBrightnessPercentage;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,9 @@ public class QuickSettings extends SettingsPreferenceFragment
         } else {
             prefScreen.removePreference(mShowAutoBrightness);
         }
+
+        mShowBrightnessPercentage = findPreference(KEY_SHOW_BRIGHTNESS_PERCENTAGE);
+        mShowBrightnessPercentage.setEnabled(showSlider);
     }
 
     @Override
@@ -89,6 +94,8 @@ public class QuickSettings extends SettingsPreferenceFragment
             mBrightnessSliderPosition.setEnabled(value > 0);
             if (mShowAutoBrightness != null)
                 mShowAutoBrightness.setEnabled(value > 0);
+            if (mShowBrightnessPercentage != null)
+                mShowBrightnessPercentage.setEnabled(value > 0);
             return true;
         }
         return false;
@@ -106,6 +113,8 @@ public class QuickSettings extends SettingsPreferenceFragment
                 LineageSettings.Secure.QS_BRIGHTNESS_SLIDER_POSITION, 0, UserHandle.USER_CURRENT);
         LineageSettings.Secure.putIntForUser(resolver,
                 LineageSettings.Secure.QS_SHOW_AUTO_BRIGHTNESS, 1, UserHandle.USER_CURRENT);
+        LineageSettings.Secure.putIntForUser(resolver,
+                LineageSettings.Secure.QS_SHOW_BRIGHTNESS_PERCENTAGE, 0, UserHandle.USER_CURRENT);
     }
 
     @Override

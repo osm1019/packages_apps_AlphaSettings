@@ -66,6 +66,13 @@
             android:summary="@string/qs_show_auto_brightness_summary"
             android:defaultValue="true" />
 
+        <lineageos.preference.LineageSecureSettingSwitchPreference
+            android:title="@string/qs_show_brightness_percentage_title"
+            android:key="qs_show_brightness_percentage"
+            android:icon="@drawable/ic_percent"
+            android:summary="@string/qs_show_brightness_percentage_summary"
+            android:defaultValue="false" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
