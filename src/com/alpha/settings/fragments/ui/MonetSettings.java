@@ -100,6 +100,8 @@ public class MonetSettings extends DashboardFragment implements
     private int mAccentColorValue;
     private int mBgColorValue;
 
+    private boolean mUpdatingPreferences = false;
+
     private SharedPreferences mSharedPreferences;
 
     @Override
@@ -144,12 +146,20 @@ public class MonetSettings extends DashboardFragment implements
     @Override
     public void onResume() {
         super.onResume();
-        updatePreferences();
+        if (getView() != null) {
+            getView().post(() -> {
+                if (getActivity() != null) updatePreferences();
+            });
+        } else {
+            updatePreferences();
+        }
     }
 
     private void updatePreferences() {
+        mUpdatingPreferences = true;
+        try {
         final String overlayPackageJson = Settings.Secure.getStringForUser(
-                getActivity().getContentResolver(),
+                getActivity() == null ? null : getActivity().getContentResolver(),
                 Settings.Secure.THEME_CUSTOMIZATION_OVERLAY_PACKAGES,
                 UserHandle.USER_CURRENT);
         if (overlayPackageJson != null && !overlayPackageJson.isEmpty()) {
@@ -222,10 +232,15 @@ public class MonetSettings extends DashboardFragment implements
                 mTintBackgroundPref.setChecked(tintBG);
             } catch (JSONException | IllegalArgumentException ignored) {}
         }
+        } finally {
+            mUpdatingPreferences = false;
+        }
     }
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        if (mUpdatingPreferences) return true;
+        if (getActivity() == null) return false;
         final ContentResolver resolver = getActivity().getContentResolver();
         if (preference == mThemeStylePref) {
             String value = (String) newValue;
@@ -281,7 +296,9 @@ public class MonetSettings extends DashboardFragment implements
     private void updateListByValue(ListPreference pref, String value, boolean set) {
         if (set) pref.setValue(value);
         final int index = pref.findIndexOfValue(value);
-        pref.setSummary(pref.getEntries()[index]);
+        if (index >= 0 && pref.getEntries() != null && index < pref.getEntries().length) {
+            pref.setSummary(pref.getEntries()[index]);
+        }
     }
 
     private void updateAccentEnablement(String source) {
@@ -293,6 +310,7 @@ public class MonetSettings extends DashboardFragment implements
     }
 
     private JSONObject getSettingsJson() throws JSONException {
+        if (getActivity() == null) return new JSONObject();
         final String overlayPackageJson = Settings.Secure.getStringForUser(
                 getActivity().getContentResolver(),
                 Settings.Secure.THEME_CUSTOMIZATION_OVERLAY_PACKAGES,
@@ -304,6 +322,7 @@ public class MonetSettings extends DashboardFragment implements
     }
 
     private void putSettingsJson(JSONObject object) {
+        if (getActivity() == null) return;
         Settings.Secure.putStringForUser(
                 getActivity().getContentResolver(),
                 Settings.Secure.THEME_CUSTOMIZATION_OVERLAY_PACKAGES,
