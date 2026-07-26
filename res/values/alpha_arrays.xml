@@ -968,15 +968,15 @@
         <item>@string/haptic_profile_richtap</item>
         <item>@string/haptic_profile_crisp</item>
         <item>@string/haptic_profile_gentle</item>
-        <item>@string/haptic_profile_op13def</item>
-        <item>@string/haptic_profile_op13soft</item>
+        <item>@string/haptic_profile_op13crisp</item>
+        <item>@string/haptic_profile_op13gentle</item>
     </string-array>
 
     <string-array name="haptic_profile_values" translatable="false">
         <item>richtap</item>
         <item>crisp</item>
         <item>gentle</item>
-        <item>op13def</item>
-        <item>op13soft</item>
+        <item>op13crisp</item>
+        <item>op13gentle</item>
     </string-array>
 </resources>

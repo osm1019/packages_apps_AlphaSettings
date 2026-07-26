@@ -1499,6 +1499,6 @@
     <string name="haptic_profile_richtap">Richtap</string>
     <string name="haptic_profile_crisp">Crisp</string>
     <string name="haptic_profile_gentle">Gentle</string>
-    <string name="haptic_profile_op13def">OnePlus 13 default</string>
-    <string name="haptic_profile_op13soft">OnePlus 13 soft</string>
+    <string name="haptic_profile_op13crisp">OP13 Crisp</string>
+    <string name="haptic_profile_op13gentle">OP13 Gentle</string>
 </resources>
