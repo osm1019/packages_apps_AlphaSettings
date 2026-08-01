@@ -23,23 +23,15 @@
     <PreferenceCategory
          android:title="@string/misc_spoofing_category">
 
-        <!-- Play Integrity Fix -->
+        <!-- Full spoofing hub (TS, PIF, Pixel props, Tensor, Photos/Snapchat, per-app) -->
         <Preference
-            android:key="play_integrity_fix"
+            android:key="spoofing"
             android:icon="@drawable/ic_fingerprint"
-            android:title="@string/play_integrity_fix_title"
-            android:summary="@string/play_integrity_fix_summary"
-            android:fragment="com.alpha.settings.fragments.misc.PlayIntegrityFix" />
+            android:title="@string/spoofing_title"
+            android:summary="@string/spoofing_summary"
+            android:fragment="com.alpha.settings.fragments.misc.Spoofing" />
 
-        <!-- TrickyStore -->
-        <Preference
-            android:key="tricky_store"
-            android:icon="@drawable/ic_vpn_key"
-            android:title="@string/tricky_store_title"
-            android:summary="@string/tricky_store_summary"
-            android:fragment="com.alpha.settings.fragments.misc.TrickyStore" />
-
-        <!-- Game Spoofing -->
+        <!-- JSON game-props config (GamePropsSpoofService source 1) -->
         <Preference
             android:key="game_spoofing"
             android:icon="@drawable/ic_swap_horiz"
