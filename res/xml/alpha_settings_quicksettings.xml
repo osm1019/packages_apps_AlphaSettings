@@ -107,6 +107,15 @@
             android:summary="@string/qs_tile_haptic_summary"
             android:defaultValue="true" />
 
+        <com.alpha.settings.preferences.SystemSettingSeekBarPreference
+            android:key="qs_header_clock_size"
+            android:title="@string/qs_clock_size_title"
+            android:max="27"
+            settings:min="10"
+            settings:interval="1"
+            android:defaultValue="14"
+            settings:units="@string/unit_pixels" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
