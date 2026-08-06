@@ -64,6 +64,17 @@
             android:summary="@string/ls_media_art_summary"
             android:fragment="com.alpha.settings.fragments.lockscreen.MediaArtSettings" />
 
+        <!-- Lockscreen media player style -->
+        <com.alpha.settings.preferences.SystemSettingListPreference
+            android:key="lockscreen_media_style"
+            android:icon="@drawable/ic_music_note"
+            android:title="@string/lockscreen_media_style_title"
+            android:summary="%s"
+            android:dialogTitle="@string/lockscreen_media_style_title"
+            android:entries="@array/lockscreen_media_style_entries"
+            android:entryValues="@array/lockscreen_media_style_values"
+            android:defaultValue="0" />
+
         <com.alpha.settings.preferences.SystemSettingSwitchPreference
             android:key="lockscreen_battery_info"
             android:icon="@drawable/ic_battery_charging"
