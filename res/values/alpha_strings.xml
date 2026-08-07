@@ -1326,6 +1326,7 @@ Note: If no valid official keybox is available, auto-fetch is paused for 24 hour
     <string name="ts_mode_auto">Auto</string>
     <string name="ts_mode_leaf">Leaf</string>
     <string name="ts_mode_cert">Cert</string>
+    <string name="ts_mode_skip">Skip</string>
 
     <!-- Game Spoofing -->
     <string name="gs_enable">Enable game spoofing</string>
