@@ -63,6 +63,7 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                         return@let
                     }
                     val stamped = JSONObject(normalized).apply {
+                        applyWalletPifFlagDefaults(this)
                         put("manually_imported", true)
                     }.toString(2)
                     Settings.Secure.putString(
@@ -111,7 +112,7 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
         }
 
         findPreference<ListPreference>("pif_spoof_vending_finger")?.apply {
-            val current = activeConfigData["spoofVendingFinger"] ?: "0"
+            val current = activeConfigData["spoofVendingFinger"] ?: DEFAULT_SPOOF_VENDING_FINGER
             value = current
             setOnPreferenceChangeListener { _, newValue ->
                 updateConfigValue("spoofVendingFinger", newValue as String)
@@ -227,6 +228,7 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                 if (!isValidFingerprint(fp)) return@launch
 
                 val toSave = JSONObject(resultToSave.pifData.toString()).apply {
+                    applyWalletPifFlagDefaults(this)
                     put("manually_imported", false)
                 }
                 Settings.Secure.putString(
@@ -278,7 +280,7 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
         populateConfigDetails(activeConfigData)
 
         findPreference<ListPreference>("pif_spoof_vending_finger")?.value =
-            activeConfigData["spoofVendingFinger"] ?: "0"
+            activeConfigData["spoofVendingFinger"] ?: DEFAULT_SPOOF_VENDING_FINGER
         findPreference<SwitchPreferenceCompat>("pif_spoof_vending_sdk")?.isChecked =
             activeConfigData["spoofVendingSdk"].let { it == "1" || it == "true" }
     }
@@ -442,10 +444,14 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                             toast(getString(R.string.pif_failed, getString(R.string.pif_invalid_fingerprint)))
                             return@launch
                         }
+                        val toSave = JSONObject(result.pifData.toString()).apply {
+                            applyWalletPifFlagDefaults(this)
+                            put("manually_imported", false)
+                        }
                         Settings.Secure.putString(
                             requireContext().contentResolver,
                             PIF_CONFIG_KEY,
-                            result.pifData.toString(2)
+                            toSave.toString(2)
                         )
                         clearUserCleared()
                         result.pifData.optString("SECURITY_PATCH").takeIf { it.isNotEmpty() }?.let {
@@ -535,6 +541,39 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
         /** Set when user deletes config; blocks auto-reseed until fetch/import. */
         private const val USER_CLEARED_KEY = "spoof_pif_user_cleared"
         private const val MATCH_DEVICE_PROP = "ro.alpha.device"
+        /** Wallet-working default: spoof Play Store fingerprint from PIF FINGERPRINT. */
+        private const val DEFAULT_SPOOF_VENDING_FINGER = "1"
+
+        /**
+         * Fills missing spoof* flags with the Wallet-working profile without
+         * overwriting explicit keys (import / advanced users keep control).
+         *
+         * Profile: spoofBuild on; spoofProps/provider/signature off;
+         * spoofVendingFinger=1; spoofVendingSdk off.
+         */
+        private fun applyWalletPifFlagDefaults(json: JSONObject) {
+            fun putIfAbsent(key: String, value: String) {
+                if (!json.has(key) || json.optString(key, "").isEmpty()) {
+                    json.put(key, value)
+                }
+            }
+            putIfAbsent("spoofBuild", "true")
+            putIfAbsent("spoofProps", "false")
+            putIfAbsent("spoofProvider", "false")
+            putIfAbsent("spoofSignature", "false")
+            // Prefer modern key; map legacy spoofVendingBuild if present without finger.
+            if (!json.has("spoofVendingFinger") || json.optString("spoofVendingFinger", "").isEmpty()) {
+                val legacy = json.optString("spoofVendingBuild", "")
+                if (legacy == "1" || legacy.equals("true", ignoreCase = true)) {
+                    json.put("spoofVendingFinger", "1")
+                } else if (legacy == "0" || legacy.equals("false", ignoreCase = true)) {
+                    json.put("spoofVendingFinger", "0")
+                } else {
+                    json.put("spoofVendingFinger", DEFAULT_SPOOF_VENDING_FINGER)
+                }
+            }
+            putIfAbsent("spoofVendingSdk", "false")
+        }
 
         private val PIXEL_DEVICE_GENERATION = mapOf(
             "rango"      to 10,  // Pixel 10 Pro Fold
@@ -870,6 +909,7 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                     put("_canary_month", canaryMonth)
                     releaseDate?.let { put("_canary_release_date", it) }
                     put("_comment_canary", "Canary Released: ${releaseDate ?: canaryMonth} | Estimated Expiry: ~6 weeks from release")
+                    applyWalletPifFlagDefaults(this)
                 }
 
                 return PifFetchResult.Success(pifDevice.model, pifJson)
@@ -891,6 +931,7 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                 if (fp.isEmpty() || !isValidFingerprint(fp)) {
                     PifFetchResult.Error("Invalid fingerprint in fallback pif.json")
                 } else {
+                    applyWalletPifFlagDefaults(json)
                     PifFetchResult.Success(
                         json.optString("MODEL", "Unknown"),
                         json
