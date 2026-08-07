@@ -138,8 +138,59 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
 
     override fun onResume() {
         super.onResume()
+        // Collapse bloated auto-fetched canary dumps to the sparse Wallet shape
+        // before UI refresh / further auto-fetch.
+        if (isPifEnabled) repairAutoPifShapeIfNeeded()
         refreshStatus()
         if (isPifEnabled && !isAutoFetchCooldownActive()) autoFetchIfStale()
+    }
+
+    /**
+     * Auto-fetched configs used to store the full canary identity (BRAND,
+     * PRODUCT, DEVICE, DEVICE_INITIAL_SDK_INT). That over-spoofs DroidGuard and
+     * breaks Wallet. Rewrite non-manual configs to the sparse working shape
+     * (FINGERPRINT / MANUFACTURER / MODEL / SECURITY_PATCH + flags).
+     */
+    private fun repairAutoPifShapeIfNeeded() {
+        val content = Settings.Secure.getString(
+            requireContext().contentResolver, PIF_CONFIG_KEY
+        ) ?: return
+        if (content.isEmpty()) return
+        try {
+            val json = JSONObject(content)
+            if (json.optBoolean("manually_imported", false)) return
+
+            val hasExtraIdentity = json.has("BRAND")
+                || json.has("PRODUCT")
+                || json.has("DEVICE")
+                || json.has("DEVICE_INITIAL_SDK_INT")
+            val missingWalletFlags = !json.has("spoofBuild")
+                || !json.has("spoofProps")
+                || !json.has("spoofProvider")
+                || (!json.has("spoofVendingBuild") && !json.has("spoofVendingFinger"))
+
+            if (!hasExtraIdentity && !missingWalletFlags) return
+
+            val fp = json.optString("FINGERPRINT", "")
+            if (fp.isNotEmpty() && !isValidFingerprint(fp)) return
+
+            val wallet = toWalletPifProfile(json).apply {
+                put("manually_imported", false)
+            }
+            Settings.Secure.putString(
+                requireContext().contentResolver,
+                PIF_CONFIG_KEY,
+                wallet.toString(2)
+            )
+            Log.i(
+                TAG,
+                "repairAutoPifShapeIfNeeded: rewrote sparse Wallet profile MODEL=" +
+                    wallet.optString("MODEL")
+            )
+            killGms()
+        } catch (e: Exception) {
+            Log.w(TAG, "repairAutoPifShapeIfNeeded failed", e)
+        }
     }
 
     private fun isAutoFetchCooldownActive(): Boolean {
@@ -211,8 +262,7 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                     (getPatchAgeDays(serverPatch) ?: 0L) > AUTO_FETCH_STALE_DAYS -> {
                         val (devices, apiKey) = withContext(Dispatchers.IO) { fetchAvailableCanaryDevices() }
                         if (devices.isNotEmpty() && !apiKey.isNullOrEmpty()) {
-                            val preferred = getMatchingPixelDevice(devices)
-                                ?: devices.random()
+                            val preferred = pickPreferredCanaryDevice(devices)
                             Log.i(TAG, "autoFetchIfStale: canary pick ${preferred.model} (${preferred.device})")
                             val betaResult = withContext(Dispatchers.IO) { buildCanaryPifFromDevice(preferred, apiKey) }
                             if (betaResult is PifFetchResult.Success) betaResult else return@launch
@@ -227,8 +277,9 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                 val fp = resultToSave.pifData.optString("FINGERPRINT", "")
                 if (!isValidFingerprint(fp)) return@launch
 
-                val toSave = JSONObject(resultToSave.pifData.toString()).apply {
-                    applyWalletPifFlagDefaults(this)
+                // Sparse Wallet profile (FINGERPRINT/MANUFACTURER/MODEL/SECURITY_PATCH + flags)
+                // — not the full canary identity dump (BRAND/PRODUCT/DEVICE/SDK).
+                val toSave = toWalletPifProfile(resultToSave.pifData).apply {
                     put("manually_imported", false)
                 }
                 Settings.Secure.putString(
@@ -237,7 +288,7 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                     toSave.toString(2)
                 )
                 Log.i(TAG, "autoFetchIfStale: wrote config MODEL=" +
-                    resultToSave.pifData.optString("MODEL") +
+                    toSave.optString("MODEL") +
                     " FP=" + fp)
                 resultToSave.pifData.optString("SECURITY_PATCH")
                     .takeIf { it.isNotEmpty() }?.let {
@@ -444,8 +495,7 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                             toast(getString(R.string.pif_failed, getString(R.string.pif_invalid_fingerprint)))
                             return@launch
                         }
-                        val toSave = JSONObject(result.pifData.toString()).apply {
-                            applyWalletPifFlagDefaults(this)
+                        val toSave = toWalletPifProfile(result.pifData).apply {
                             put("manually_imported", false)
                         }
                         Settings.Secure.putString(
@@ -454,11 +504,11 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                             toSave.toString(2)
                         )
                         clearUserCleared()
-                        result.pifData.optString("SECURITY_PATCH").takeIf { it.isNotEmpty() }?.let {
+                        toSave.optString("SECURITY_PATCH").takeIf { it.isNotEmpty() }?.let {
                             updatePatchDateIfSimple(requireContext().contentResolver, it)
                         }
                         killGms()
-                        toast(getString(R.string.pif_fetched_model, result.model))
+                        toast(getString(R.string.pif_fetched_model, toSave.optString("MODEL", result.model)))
                         refreshStatus()
                     }
                     is PifFetchResult.Error -> {
@@ -545,6 +595,43 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
         private const val DEFAULT_SPOOF_VENDING_FINGER = "1"
 
         /**
+         * Wallet-working PIF shape matching the imported prop that passes Wallet:
+         *
+         *   FINGERPRINT / MANUFACTURER / MODEL / SECURITY_PATCH
+         *   spoofBuild=true, spoofProps/provider/signature=false
+         *   spoofVendingBuild=true, spoofVendingSdk=false, DEBUG=false
+         *
+         * Extra canary identity keys (BRAND, PRODUCT, DEVICE, DEVICE_INITIAL_SDK_INT)
+         * are dropped. spoofBuild applies every stored Build field to DroidGuard;
+         * over-spoofing those breaks Wallet even when the fingerprint itself is fine.
+         */
+        private fun toWalletPifProfile(source: JSONObject): JSONObject {
+            return JSONObject().apply {
+                put("FINGERPRINT", source.optString("FINGERPRINT", ""))
+                put(
+                    "MANUFACTURER",
+                    source.optString("MANUFACTURER", "Google").ifEmpty { "Google" }
+                )
+                put("MODEL", source.optString("MODEL", ""))
+                put("SECURITY_PATCH", source.optString("SECURITY_PATCH", ""))
+                put("spoofBuild", "true")
+                put("spoofProps", "false")
+                put("spoofProvider", "false")
+                put("spoofSignature", "false")
+                // Working prop uses spoofVendingBuild; service also honors spoofVendingFinger.
+                put("spoofVendingBuild", "true")
+                put("spoofVendingFinger", DEFAULT_SPOOF_VENDING_FINGER)
+                put("spoofVendingSdk", "false")
+                put("DEBUG", "false")
+                // UI-only canary meta (underscore keys are filtered from details list).
+                source.optString("_canary_month").takeIf { it.isNotEmpty() }
+                    ?.let { put("_canary_month", it) }
+                source.optString("_canary_release_date").takeIf { it.isNotEmpty() }
+                    ?.let { put("_canary_release_date", it) }
+            }
+        }
+
+        /**
          * Fills missing spoof* flags with the Wallet-working profile without
          * overwriting explicit keys (import / advanced users keep control).
          *
@@ -561,6 +648,7 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
             putIfAbsent("spoofProps", "false")
             putIfAbsent("spoofProvider", "false")
             putIfAbsent("spoofSignature", "false")
+            putIfAbsent("spoofVendingBuild", "true")
             // Prefer modern key; map legacy spoofVendingBuild if present without finger.
             if (!json.has("spoofVendingFinger") || json.optString("spoofVendingFinger", "").isEmpty()) {
                 val legacy = json.optString("spoofVendingBuild", "")
@@ -573,6 +661,24 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                 }
             }
             putIfAbsent("spoofVendingSdk", "false")
+            putIfAbsent("DEBUG", "false")
+        }
+
+        /**
+         * Auto device pick: real-device match, then Wallet-known-good codenames
+         * (husky first — matches the working imported prop), never random P10.
+         */
+        private fun pickPreferredCanaryDevice(devices: List<PifDevice>): PifDevice {
+            getMatchingPixelDevice(devices)?.let { return it }
+            val walletPrefer = listOf(
+                "husky", "shiba", "akita",
+                "komodo", "caiman", "tokay", "tegu",
+                "blazer", "frankel", "mustang", "comet", "rango"
+            )
+            for (codename in walletPrefer) {
+                devices.firstOrNull { it.device == codename }?.let { return it }
+            }
+            return devices.first()
         }
 
         private val PIXEL_DEVICE_GENERATION = mapOf(
@@ -897,22 +1003,18 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
 
                 val releaseDate = factoryImageUrl?.let { fetchLastModifiedDate(it) }
 
-                val pifJson = JSONObject().apply {
+                // Build a full intermediate object, then collapse to the sparse
+                // Wallet profile (same shape as the working imported pif.prop).
+                val raw = JSONObject().apply {
                     put("MANUFACTURER", "Google")
-                    put("BRAND", "google")
                     put("MODEL", pifDevice.model)
-                    put("PRODUCT", pifDevice.product)
-                    put("DEVICE", pifDevice.device)
                     put("FINGERPRINT", fingerprint)
                     put("SECURITY_PATCH", securityPatch)
-                    put("DEVICE_INITIAL_SDK_INT", "32")
                     put("_canary_month", canaryMonth)
                     releaseDate?.let { put("_canary_release_date", it) }
-                    put("_comment_canary", "Canary Released: ${releaseDate ?: canaryMonth} | Estimated Expiry: ~6 weeks from release")
-                    applyWalletPifFlagDefaults(this)
                 }
 
-                return PifFetchResult.Success(pifDevice.model, pifJson)
+                return PifFetchResult.Success(pifDevice.model, toWalletPifProfile(raw))
             } catch (e: Exception) {
                 return PifFetchResult.Error("Failed: ${e.message}")
             }
@@ -931,10 +1033,10 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                 if (fp.isEmpty() || !isValidFingerprint(fp)) {
                     PifFetchResult.Error("Invalid fingerprint in fallback pif.json")
                 } else {
-                    applyWalletPifFlagDefaults(json)
+                    val wallet = toWalletPifProfile(json)
                     PifFetchResult.Success(
-                        json.optString("MODEL", "Unknown"),
-                        json
+                        wallet.optString("MODEL", "Unknown"),
+                        wallet
                     )
                 }
             } catch (e: Exception) {
