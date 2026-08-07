@@ -457,22 +457,37 @@ class TrickyStore : SettingsPreferenceFragment() {
         val xml = decodeKeyboxXml(raw)
             ?: return Pair(RevocationStatus.UNKNOWN, "")
 
-        // 1. Parse certificates
-        val certs = extractCertificates(xml)
-        if (certs.isEmpty()) return Pair(RevocationStatus.UNKNOWN, "")
+        // 1. Parse per-Key certificate chains. Keyboxes ship EC + RSA chains in one
+        // XML; flattening them into a single list made validateChain fail at the
+        // EC-root→RSA-leaf junction (false CHAIN_INVALID / BAD_SIGNATURE_AT_2).
+        val chains = extractCertificateChains(xml)
+        if (chains.isEmpty()) return Pair(RevocationStatus.UNKNOWN, "")
 
-        // 2. Validate chain: each cert must be signed by the next, root must be trusted
-        val chainError = validateChain(certs)
-        if (chainError != null) {
-            val status = if (chainError == "UNTRUSTED_ROOT")
+        // 2. Validate each chain independently; success if any chain is good.
+        val validChains = mutableListOf<List<X509Certificate>>()
+        var firstError: String? = null
+        var sawUntrustedRoot = false
+        for (chain in chains) {
+            val chainError = validateChain(chain)
+            if (chainError == null) {
+                validChains.add(chain)
+            } else {
+                if (firstError == null) firstError = chainError
+                if (chainError == "UNTRUSTED_ROOT") sawUntrustedRoot = true
+            }
+        }
+        if (validChains.isEmpty()) {
+            val status = if (sawUntrustedRoot && firstError == "UNTRUSTED_ROOT")
                 RevocationStatus.UNTRUSTED_ROOT
             else
                 RevocationStatus.CHAIN_INVALID
-            return Pair(status, chainError)
+            return Pair(status, firstError ?: "CHAIN_INVALID")
         }
 
-        // 4. Check leaf cert expiry
-        val leafCert = certs.first()
+        val certs = validChains.flatten()
+
+        // 4. Check leaf cert expiry (first valid chain's leaf)
+        val leafCert = validChains.first().first()
         val now = System.currentTimeMillis()
         if (leafCert.notAfter.time < now) {
             // Already expired – treat like chain invalid so it gets replaced
@@ -522,12 +537,12 @@ class TrickyStore : SettingsPreferenceFragment() {
         } catch (_: Exception) { null }
     }
 
-    private fun extractCertificates(xml: String): List<X509Certificate> {
+    private fun parsePemCertificates(block: String): List<X509Certificate> {
         val certs = mutableListOf<X509Certificate>()
         val factory = CertificateFactory.getInstance("X.509")
         val matcher = Pattern.compile(
             "-----BEGIN CERTIFICATE-----([\\s\\S]+?)-----END CERTIFICATE-----"
-        ).matcher(xml)
+        ).matcher(block)
         while (matcher.find()) {
             try {
                 val der = Base64.decode(
@@ -540,10 +555,32 @@ class TrickyStore : SettingsPreferenceFragment() {
     }
 
     /**
-     * Validates the certificate chain:
+     * Extract certificate chains from keybox XML. Prefer one list per
+     * `<CertificateChain>` (EC + RSA are separate). Fall back to a single flat
+     * list when tags are missing (malformed / legacy payload).
+     */
+    private fun extractCertificateChains(xml: String): List<List<X509Certificate>> {
+        val chains = mutableListOf<List<X509Certificate>>()
+        val chainMatcher = Pattern.compile(
+            "<CertificateChain\\b[\\s\\S]*?</CertificateChain>",
+            Pattern.CASE_INSENSITIVE
+        ).matcher(xml)
+        while (chainMatcher.find()) {
+            val certs = parsePemCertificates(chainMatcher.group())
+            if (certs.isNotEmpty()) chains.add(certs)
+        }
+        if (chains.isEmpty()) {
+            val flat = parsePemCertificates(xml)
+            if (flat.isNotEmpty()) chains.add(flat)
+        }
+        return chains
+    }
+
+    /**
+     * Validates one certificate chain (leaf → … → root):
      * - Each cert[i] must be signed by cert[i+1]
-     * - The last cert must be self-signed and its public-key fingerprint must
-     *   match one of the known Google attestation root fingerprints.
+     * - The last cert must be self-signed and its DER SHA-256 must match a
+     *   known Google hardware attestation root.
      *
      * Returns null if the chain is valid, or a short error string on failure.
      */
@@ -651,10 +688,11 @@ class TrickyStore : SettingsPreferenceFragment() {
                             return@fold
                         }
 
-                        val fetchedCerts = extractCertificates(xml)
+                        val fetchedChains = extractCertificateChains(xml)
+                        val fetchedCerts = fetchedChains.flatten()
 
-                        // Check expiry of the leaf cert
-                        val leafExpiry = fetchedCerts.firstOrNull()?.notAfter
+                        // Check expiry of the leaf cert (first chain's leaf)
+                        val leafExpiry = fetchedChains.firstOrNull()?.firstOrNull()?.notAfter
                         val now = System.currentTimeMillis()
                         if (leafExpiry != null && leafExpiry.time < now) {
                             if (!silent) toast(getString(
