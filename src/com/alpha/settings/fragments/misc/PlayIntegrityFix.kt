@@ -70,6 +70,7 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                         PIF_CONFIG_KEY,
                         stamped
                     )
+                    clearUserCleared()
                     try {
                         val patch = JSONObject(normalized).optString("SECURITY_PATCH")
                         if (patch.isNotEmpty()) {
@@ -153,9 +154,19 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
         )
     }
 
-    private fun clearAutoFetchCooldown() {
-        Settings.Secure.putLong(
-            requireContext().contentResolver, LAST_AUTO_FETCH_KEY, 0L)
+    /** True after user explicitly deletes pif.json — blocks silent auto-reseed. */
+    private fun isUserCleared(): Boolean =
+        Settings.Secure.getInt(
+            requireContext().contentResolver, USER_CLEARED_KEY, 0) == 1
+
+    private fun markUserCleared() {
+        Settings.Secure.putInt(
+            requireContext().contentResolver, USER_CLEARED_KEY, 1)
+    }
+
+    private fun clearUserCleared() {
+        Settings.Secure.putInt(
+            requireContext().contentResolver, USER_CLEARED_KEY, 0)
     }
 
     private fun autoFetchIfStale() {
@@ -168,6 +179,13 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
         } catch (_: Exception) { false }
 
         if (isManuallyImported) return
+
+        // User deleted the config: stay empty until they fetch/import.
+        // First-boot (empty + never cleared) still auto-seeds.
+        if (content.isNullOrEmpty() && isUserCleared()) {
+            Log.i(TAG, "autoFetchIfStale: skip, user cleared config")
+            return
+        }
 
         markAutoFetchDone()
         scope.launch {
@@ -194,6 +212,7 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                         if (devices.isNotEmpty() && !apiKey.isNullOrEmpty()) {
                             val preferred = getMatchingPixelDevice(devices)
                                 ?: devices.random()
+                            Log.i(TAG, "autoFetchIfStale: canary pick ${preferred.model} (${preferred.device})")
                             val betaResult = withContext(Dispatchers.IO) { buildCanaryPifFromDevice(preferred, apiKey) }
                             if (betaResult is PifFetchResult.Success) betaResult else return@launch
                         } else {
@@ -215,6 +234,9 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                     PIF_CONFIG_KEY,
                     toSave.toString(2)
                 )
+                Log.i(TAG, "autoFetchIfStale: wrote config MODEL=" +
+                    resultToSave.pifData.optString("MODEL") +
+                    " FP=" + fp)
                 resultToSave.pifData.optString("SECURITY_PATCH")
                     .takeIf { it.isNotEmpty() }?.let {
                         updatePatchDateIfSimple(requireContext().contentResolver, it)
@@ -339,7 +361,12 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                         PIF_CONFIG_KEY,
                         null
                     )
-                    clearAutoFetchCooldown()
+                    // Remember intentional delete so onResume auto-fetch does not
+                    // immediately reseed a random/preferred canary profile.
+                    markUserCleared()
+                    // Keep cooldown so a future first-boot-style reseed is not forced
+                    // in the same session; markAutoFetchDone is enough.
+                    markAutoFetchDone()
                     toast(getString(R.string.pif_deleted, PIF_CONFIG_NAME))
                     refreshStatus()
                 } catch (e: Exception) {
@@ -420,6 +447,7 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                             PIF_CONFIG_KEY,
                             result.pifData.toString(2)
                         )
+                        clearUserCleared()
                         result.pifData.optString("SECURITY_PATCH").takeIf { it.isNotEmpty() }?.let {
                             updatePatchDateIfSimple(requireContext().contentResolver, it)
                         }
@@ -504,6 +532,8 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
         private const val AUTO_FETCH_STALE_DAYS = 21L
         private const val PIF_ENABLED_KEY = "spoof_pif_enabled"
         private const val LAST_AUTO_FETCH_KEY = "spoof_pif_last_auto_fetch"
+        /** Set when user deletes config; blocks auto-reseed until fetch/import. */
+        private const val USER_CLEARED_KEY = "spoof_pif_user_cleared"
         private const val MATCH_DEVICE_PROP = "ro.alpha.device"
 
         private val PIXEL_DEVICE_GENERATION = mapOf(
