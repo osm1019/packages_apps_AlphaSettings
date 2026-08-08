@@ -115,6 +115,10 @@ class QSTileIconShapePreference @JvmOverloads constructor(
     }
 
     private fun createPreviewDrawable(shapeKey: String): Drawable {
+        if (shapeKey == QSTileIconShapes.DEFAULT_KEY) {
+            // No silhouette to draw: show the two states it keeps instead, inactive then active.
+            return TileStateMorphPreviewDrawable(getThemeIconColor())
+        }
         val pathData = QSTileIconShapes.pathForKey(shapeKey)
         return TileIconShapePreviewDrawable(pathData, getThemeIconColor())
     }
@@ -226,6 +230,60 @@ class QSTileIconShapePreference @JvmOverloads constructor(
         }
     }
 
+    /**
+     * Preview for [QSTileIconShapes.DEFAULT_KEY]. It has no path, so draw what it actually gives
+     * you: the AOSP tile pair, a stadium while inactive and a squircle while active. Corner radii
+     * are expressed as a fraction of the cell so they read the same at any preview size — 50% and
+     * 33%, matching SystemUI's 50dp and 24dp on a 72dp tile.
+     */
+    private class TileStateMorphPreviewDrawable(color: Int) : Drawable() {
+
+        private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            style = Paint.Style.FILL
+            this.color = color
+        }
+
+        override fun draw(canvas: Canvas) {
+            val r = bounds
+            if (r.isEmpty) return
+
+            val gap = r.width() * CELL_GAP_FRACTION
+            val cellWidth = (r.width() - gap) / 2f
+            val cellHeight = r.height().toFloat()
+            val minSide = min(cellWidth, cellHeight)
+
+            canvas.drawRoundRect(
+                r.left.toFloat(), r.top.toFloat(),
+                r.left + cellWidth, r.top + cellHeight,
+                minSide * INACTIVE_CORNER_FRACTION, minSide * INACTIVE_CORNER_FRACTION,
+                paint,
+            )
+            canvas.drawRoundRect(
+                r.left + cellWidth + gap, r.top.toFloat(),
+                r.right.toFloat(), r.top + cellHeight,
+                minSide * ACTIVE_CORNER_FRACTION, minSide * ACTIVE_CORNER_FRACTION,
+                paint,
+            )
+        }
+
+        override fun setAlpha(alpha: Int) {
+            paint.alpha = alpha
+        }
+
+        override fun setColorFilter(colorFilter: ColorFilter?) {
+            paint.colorFilter = colorFilter
+        }
+
+        @Suppress("OVERRIDE_DEPRECATION")
+        override fun getOpacity(): Int = PixelFormat.TRANSLUCENT
+
+        private companion object {
+            const val CELL_GAP_FRACTION = 0.12f
+            const val INACTIVE_CORNER_FRACTION = 0.5f
+            const val ACTIVE_CORNER_FRACTION = 1f / 3f
+        }
+    }
+
     private class TileIconShapePreviewDrawable(
         pathData: String,
         color: Int,
@@ -240,7 +298,7 @@ class QSTileIconShapePreference @JvmOverloads constructor(
             PathParser.createPathFromPathData(pathData)
         } catch (_: RuntimeException) {
             PathParser.createPathFromPathData(
-                QSTileIconShapes.pathForKey(QSTileIconShapes.DEFAULT_KEY)
+                QSTileIconShapes.pathForKey(QSTileIconShapes.FALLBACK_PATH_KEY)
             )
         }
 

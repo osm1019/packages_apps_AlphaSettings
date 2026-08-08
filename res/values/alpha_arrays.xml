@@ -853,8 +853,8 @@
 
 
     <string-array name="qs_tile_icon_shape_entries" translatable="false">
+        <item>@string/shape_dynamic</item>
         <item>@string/shape_circle</item>
-        <item>@string/shape_square</item>
         <item>@string/shape_rounded_rect</item>
         <item>@string/shape_squircle</item>
         <item>@string/shape_ios_rounded_square</item>
@@ -864,8 +864,8 @@
     </string-array>
 
     <string-array name="qs_tile_icon_shape_values" translatable="false">
+        <item>dynamic</item>
         <item>circle</item>
-        <item>square</item>
         <item>rounded_rect</item>
         <item>squircle</item>
         <item>ios_rounded_square</item>
