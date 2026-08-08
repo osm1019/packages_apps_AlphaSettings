@@ -872,8 +872,6 @@ A small donation helps keep this project alive and improving. You can dismiss th
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Estàndard WiFi</string>
-    <string name="wifi_standard_icon_summary">Mostra l\'estàndard WiFi al costat del senyal WiFi</string>
     <!-- App lock -->
     <string name="app_lock_title">Bloqueig d\'aplicacions</string>
     <plurals name="app_lock_summary">

@@ -872,8 +872,6 @@
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">استاندارد وای فای</string>
-    <string name="wifi_standard_icon_summary">نمایش استاندارد WiFi در کنار سیگنال WiFi</string>
     <!-- App lock -->
     <string name="app_lock_title">قفل برنامه</string>
     <plurals name="app_lock_summary">

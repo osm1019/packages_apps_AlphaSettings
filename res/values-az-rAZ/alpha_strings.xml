@@ -873,8 +873,6 @@ Kiçik bir ianə bu layihənin canlı qalmasına və inkişaf etməsinə kömək
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">WiFi standartı</string>
-    <string name="wifi_standard_icon_summary">Ekranda WiFi siqnalının yanında WiFi standartını göstərin</string>
     <!-- App lock -->
     <string name="app_lock_title">Proqram kilidi</string>
     <plurals name="app_lock_summary">

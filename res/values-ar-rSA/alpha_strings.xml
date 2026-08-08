@@ -881,8 +881,6 @@
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">معيار واي فاي</string>
-    <string name="wifi_standard_icon_summary">عرض نوع اشارة الواي فاي بجانب إشارة الواي فاي</string>
     <!-- App lock -->
     <string name="app_lock_title">قفل التطبيق</string>
     <plurals name="app_lock_summary">

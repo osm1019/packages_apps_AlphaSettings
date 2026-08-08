@@ -872,8 +872,6 @@ A small donation helps keep this project alive and improving. You can dismiss th
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">وائی ​​فائی کا معیار</string>
-    <string name="wifi_standard_icon_summary">وائی ​​فائی سگنل کے آگے وائی فائی سٹینڈرڈ ڈسپلے کریں۔</string>
     <!-- App lock -->
     <string name="app_lock_title">ایپ لاک</string>
     <plurals name="app_lock_summary">

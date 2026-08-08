@@ -750,8 +750,6 @@
     <string name="floating_rotation_button_title">Nút xoay màn hình nổi</string>
     <string name="floating_rotation_button_summary">Hiển thị nút xoay nổi khi xoay thiết bị</string>
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Chuẩn mạng không dây</string>
-    <string name="wifi_standard_icon_summary">Hiển thị chuẩn wifi ngay cạnh biểu tượng wifi</string>
     <!-- App lock -->
     <string name="app_lock_title">Khóa ứng dụng</string>
     <plurals name="app_lock_summary">

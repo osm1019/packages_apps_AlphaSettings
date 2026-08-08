@@ -871,8 +871,6 @@
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Wi-Fi 規格</string>
-    <string name="wifi_standard_icon_summary">Wi-Fi シグナルの横に規格名を表示します</string>
     <!-- App lock -->
     <string name="app_lock_title">アプリのロック</string>
     <plurals name="app_lock_summary">

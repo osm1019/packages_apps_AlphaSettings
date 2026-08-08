@@ -875,8 +875,6 @@ quick_settings_expanded_desktop
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">வைஃபை தரநிலை</string>
-    <string name="wifi_standard_icon_summary">வைஃபை சிக்னலுக்கு அடுத்ததாக வைஃபை தரநிலையைக் காட்டவும்</string>
     <!-- App lock -->
     <string name="app_lock_title">பயன்பாட்டு பூட்டு</string>
     <plurals name="app_lock_summary">

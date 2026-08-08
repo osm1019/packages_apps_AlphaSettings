@@ -752,8 +752,6 @@
     <string name="floating_rotation_button_title">Αιωρούμενο κουμπί περιστροφής</string>
     <string name="floating_rotation_button_summary">Εμφάνιση ενός αιωρούμενου κουμπιού περιστροφής όταν η συσκευή περιστρέφεται</string>
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Συχνότητα WiFi</string>
-    <string name="wifi_standard_icon_summary">Εμφάνιση συχνότητας WiFi δίπλα στο σήμα WiFi</string>
     <!-- App lock -->
     <string name="app_lock_title">Κλείδωμα εφαρμογών</string>
     <plurals name="app_lock_summary">

@@ -750,8 +750,6 @@
     <string name="floating_rotation_button_title">Tombol rotasi mengambang</string>
     <string name="floating_rotation_button_summary">Tampilkan tombol rotasi mengambang saat perangkat diputar</string>
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Standar WiFi</string>
-    <string name="wifi_standard_icon_summary">Tampilkan standar WiFi di sebelah sinyal WiFi</string>
     <!-- App lock -->
     <string name="app_lock_title">Kunci Aplikasi</string>
     <plurals name="app_lock_summary">

@@ -752,8 +752,6 @@
     <string name="floating_rotation_button_title">Kayan döndürme tuşu</string>
     <string name="floating_rotation_button_summary">Cihaz döndürüldüğünde kayan bir döndürme tuşu göster</string>
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">WiFi standardı</string>
-    <string name="wifi_standard_icon_summary">WiFi sinyalinin yanında WiFi standardını göster</string>
     <!-- App lock -->
     <string name="app_lock_title">Uygulama kilidi</string>
     <plurals name="app_lock_summary">

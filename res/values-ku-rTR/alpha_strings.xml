@@ -872,8 +872,6 @@ A small donation helps keep this project alive and improving. You can dismiss th
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">WiFi standard</string>
-    <string name="wifi_standard_icon_summary">Li kêleka sînyala WiFi standarda WiFi nîşan bidin</string>
     <!-- App lock -->
     <string name="app_lock_title">App lock</string>
     <plurals name="app_lock_summary">

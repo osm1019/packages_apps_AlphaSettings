@@ -873,8 +873,6 @@
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">ВиФи стандард</string>
-    <string name="wifi_standard_icon_summary">Прикажи ВиФи стандард поред ВиФи сигнала</string>
     <!-- App lock -->
     <string name="app_lock_title">Закључавање апликације</string>
     <plurals name="app_lock_summary">

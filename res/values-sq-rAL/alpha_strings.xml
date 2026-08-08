@@ -752,8 +752,6 @@
     <string name="floating_rotation_button_title">Butoni i rrotullimit lundrues</string>
     <string name="floating_rotation_button_summary">Shfaq një buton rrotullues lundrues kur pajisja rrotullohet</string>
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Standardi WiFi</string>
-    <string name="wifi_standard_icon_summary">Shfaq standardin WiFi pranë sinjalit WiFi</string>
     <!-- App lock -->
     <string name="app_lock_title">Kyçja e aplikacionit</string>
     <plurals name="app_lock_summary">

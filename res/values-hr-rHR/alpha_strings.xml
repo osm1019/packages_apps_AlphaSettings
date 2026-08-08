@@ -874,8 +874,6 @@ Mala donacija pomaže u održavanju i poboljšanju ovog projekta. Možete odbaci
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Wi‑Fi standard</string>
-    <string name="wifi_standard_icon_summary">Prikaz WiFi standarda pokraj ikone WiFi signala</string>
     <!-- App lock -->
     <string name="app_lock_title">Zaključavanje aplikacija</string>
     <plurals name="app_lock_summary">

@@ -752,8 +752,6 @@
     <string name="floating_rotation_button_title">Botão de rotação flutuante</string>
     <string name="floating_rotation_button_summary">Mostrar um botão de rotação flutuante quando o dispositivo for rotacionado</string>
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Frequência da rede Wi-Fi</string>
-    <string name="wifi_standard_icon_summary">Mostrar frequência da rede conectada no ícone de Wi-Fi</string>
     <!-- App lock -->
     <string name="app_lock_title">Bloqueio de aplicativos</string>
     <plurals name="app_lock_summary">

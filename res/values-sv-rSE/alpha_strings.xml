@@ -872,8 +872,6 @@ En liten donation hjälper oss att hålla det här projektet vid liv och för at
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">WiFi-standard</string>
-    <string name="wifi_standard_icon_summary">Visa WiFi-standard bredvid WiFi-signal</string>
     <!-- App lock -->
     <string name="app_lock_title">Applås</string>
     <plurals name="app_lock_summary">

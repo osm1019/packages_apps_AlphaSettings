@@ -870,8 +870,6 @@
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Wi-Fi 규격</string>
-    <string name="wifi_standard_icon_summary">Wi-Fi 신호 옆에 Wi-Fi 규격 표시</string>
     <!-- App lock -->
     <string name="app_lock_title">앱 잠금</string>
     <plurals name="app_lock_summary">

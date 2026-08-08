@@ -872,8 +872,6 @@ Een kleine donatie helpt dit project in leven te houden en te verbeteren. U kunt
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">WiFi standaard</string>
-    <string name="wifi_standard_icon_summary">Wifi-standaard naast WiFi-signaal weergeven</string>
     <!-- App lock -->
     <string name="app_lock_title">Appvergrendeling</string>
     <plurals name="app_lock_summary">

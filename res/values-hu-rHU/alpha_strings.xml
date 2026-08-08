@@ -752,8 +752,6 @@
     <string name="floating_rotation_button_title">Lebegő \'Elforgatás gomb\'</string>
     <string name="floating_rotation_button_summary">Egy lebegő gombbal jelzi, ha a készüléket elforgatták</string>
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Wi-Fi-szabvány</string>
-    <string name="wifi_standard_icon_summary">A Wi-Fi-jel mellett a szabványt is megjeleníti</string>
     <!-- App lock -->
     <string name="app_lock_title">Alkalmazás-zár</string>
     <plurals name="app_lock_summary">

@@ -873,8 +873,6 @@ Voit hylätä tämän viestin mutta tukesi auttaa paljon.</string>
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">WiFi-standardi</string>
-    <string name="wifi_standard_icon_summary">Näytä WiFi-standardi WiFi-signaalin vieressä</string>
     <!-- App lock -->
     <string name="app_lock_title">Sovelluksen lukitus</string>
     <plurals name="app_lock_summary">

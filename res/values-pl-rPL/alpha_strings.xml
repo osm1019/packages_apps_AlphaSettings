@@ -756,8 +756,6 @@
     <string name="floating_rotation_button_title">Pływający przycisk obracania</string>
     <string name="floating_rotation_button_summary">Pokaż pływający przycisk obracania po obróceniu urządzenia</string>
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Standard sieci WiFi</string>
-    <string name="wifi_standard_icon_summary">Wyświetlaj standard sieci WiFi obok ikony sygnału WiFi</string>
     <!-- App lock -->
     <string name="app_lock_title">Blokada aplikacji</string>
     <plurals name="app_lock_summary">

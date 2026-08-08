@@ -752,8 +752,6 @@
     <string name="floating_rotation_button_title">फ्लोटिंग रोटेट बटन</string>
     <string name="floating_rotation_button_summary">जब डिवाइस घुमाया जाए तो एक फ्लोटिंग रोटेट बटन दिखाएं</string>
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">वाईफाई मानक</string>
-    <string name="wifi_standard_icon_summary">वाईफाई सिग्नल के बगल में वाईफाई मानक प्रदर्शित करें</string>
     <!-- App lock -->
     <string name="app_lock_title">ऐप लॉक</string>
     <plurals name="app_lock_summary">

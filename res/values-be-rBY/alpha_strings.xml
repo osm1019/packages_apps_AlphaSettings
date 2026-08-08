@@ -877,8 +877,6 @@
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Стандартны значок WiFi</string>
-    <string name="wifi_standard_icon_summary">Паказваць стандарт WiFi побач з сігналам WiFi</string>
     <!-- App lock -->
     <string name="app_lock_title">Блакіроўка праграм</string>
     <plurals name="app_lock_summary">

@@ -750,8 +750,6 @@
     <string name="floating_rotation_button_title">浮動螢幕旋轉按鈕</string>
     <string name="floating_rotation_button_summary">旋轉螢幕時顯示旋轉控制按鈕</string>
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Wi-Fi 標準</string>
-    <string name="wifi_standard_icon_summary">在訊號圖示上顯示目前所使用的 Wi-Fi 標準</string>
     <!-- App lock -->
     <string name="app_lock_title">應用鎖</string>
     <plurals name="app_lock_summary">

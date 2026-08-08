@@ -872,8 +872,6 @@ A small donation helps keep this project alive and improving. You can dismiss th
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">WiFi standard</string>
-    <string name="wifi_standard_icon_summary">Luba WiFi signaali kõrval WiFi standardit</string>
     <!-- App lock -->
     <string name="app_lock_title">Rakenduselukk</string>
     <plurals name="app_lock_summary">

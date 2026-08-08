@@ -756,8 +756,6 @@
     <string name="floating_rotation_button_title">Плавающая кнопка поворота</string>
     <string name="floating_rotation_button_summary">Показывать плавающую кнопку поворота при вращении устройства</string>
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Стандарт Wi-Fi</string>
-    <string name="wifi_standard_icon_summary">Стандарт WiFi на значке сигнала WiFi</string>
     <!-- App lock -->
     <string name="app_lock_title">Блокировка приложений</string>
     <plurals name="app_lock_summary">

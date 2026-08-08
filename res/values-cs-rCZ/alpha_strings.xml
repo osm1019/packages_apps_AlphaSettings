@@ -756,8 +756,6 @@
     <string name="floating_rotation_button_title">Plovoucí tlačítko otáčení</string>
     <string name="floating_rotation_button_summary">Zobrazit plovoucí tlačítko otáčení při otočení zařízení</string>
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Wi‑Fi standard</string>
-    <string name="wifi_standard_icon_summary">Zobrazit vedle Wi‑Fi signálu Wi‑Fi standard</string>
     <!-- App lock -->
     <string name="app_lock_title">Zámek aplikací</string>
     <plurals name="app_lock_summary">

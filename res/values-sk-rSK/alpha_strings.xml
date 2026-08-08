@@ -877,8 +877,6 @@ Malý dar pomáha udržiavať tento projekt pri živote a zlepšovať sa. Túto 
     <!-- Captive portal -->
     <!-- Battery stats reset -->
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Wi‑Fi štandard</string>
-    <string name="wifi_standard_icon_summary">Zobraziť Wi-Fi štandard vedľa Wi-Fi signálu</string>
     <!-- App lock -->
     <string name="app_lock_title">Zámok aplikácií</string>
     <plurals name="app_lock_summary">

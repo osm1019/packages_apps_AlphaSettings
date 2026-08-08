@@ -902,8 +902,6 @@
     <string name="floating_rotation_button_summary">Show a floating rotate button when device is rotated</string>
 
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">WiFi standard</string>
-    <string name="wifi_standard_icon_summary">Display WiFi standard next to WiFi signal</string>
 
     <!-- App lock -->
     <string name="app_lock_title">App lock</string>

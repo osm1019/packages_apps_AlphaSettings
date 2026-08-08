@@ -754,8 +754,6 @@
     <string name="floating_rotation_button_title">Buton rotire plutitor</string>
     <string name="floating_rotation_button_summary">Arată un buton de rotire plutitor când dispozitivul este rotit</string>
     <!-- WiFi Standard icon -->
-    <string name="wifi_standard_icon_title">Standard WiFi</string>
-    <string name="wifi_standard_icon_summary">Afișează standardul WiFi lângă semnalul WiFi</string>
     <!-- App lock -->
     <string name="app_lock_title">Blocare aplicații</string>
     <plurals name="app_lock_summary">
