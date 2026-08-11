@@ -1466,8 +1466,6 @@
     <string name="cutout_ring_stroke_title">Stroke thickness</string>
     <string name="cutout_ring_stroke_summary">Ring stroke width in dp (÷10)</string>
 
-    <!-- Volume slider shapes -->
-
     <!-- QuickLook -->
     <string name="quicklook_category_title">QuickLook</string>
     <string name="quicklook_calendar_title">Calendar</string>
@@ -1492,4 +1490,8 @@
     <string name="lockscreen_media_style_glass">Glass</string>
     <string name="lockscreen_media_style_minimal">Minimal</string>
     <string name="lockscreen_media_style_waveform">Waveform</string>
+
+    <!-- Battery saver refresh rate (Settings.System.LOW_POWER_REFRESH_RATE) -->
+    <string name="battery_saver_refresh_rate_title">Reduce refresh rate</string>
+    <string name="battery_saver_refresh_rate_summary">Use 60 Hz screen refresh rate to save power when Battery Saver is on</string>
 </resources>
