@@ -55,6 +55,13 @@
             android:defaultValue="true" />
 
         <SwitchPreferenceCompat
+            android:key="event_now_playing"
+            android:title="@string/dynamic_bar_event_now_playing"
+            android:summary="@string/dynamic_bar_event_now_playing_summary"
+            android:icon="@drawable/ic_music"
+            android:defaultValue="true" />
+
+        <SwitchPreferenceCompat
             android:key="event_call"
             android:title="@string/dynamic_bar_event_call"
             android:summary="@string/dynamic_bar_event_call_summary"
