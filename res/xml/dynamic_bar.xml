@@ -35,14 +35,6 @@
         android:defaultValue="true"
         android:dependency="ax_dynamic_bar_enabled" />
 
-    <com.alpha.settings.preferences.SecureSettingListPreference
-        android:key="ax_dynamic_bar_keyguard_battery_chip_mode"
-        android:title="@string/dynamic_bar_keyguard_battery_chip"
-        android:entries="@array/dynamic_bar_keyguard_battery_chip_entries"
-        android:entryValues="@array/dynamic_bar_keyguard_battery_chip_values"
-        android:defaultValue="1"
-        android:dependency="ax_dynamic_bar_keyguard_enabled" />
-
     <PreferenceCategory
         android:key="dynamic_bar_events_category"
         android:title="@string/dynamic_bar_events"
