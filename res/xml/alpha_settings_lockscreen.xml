@@ -115,7 +115,8 @@
             android:icon="@drawable/ic_now_playing"
             android:title="@string/quicklook_now_playing_title"
             android:summary="@string/quicklook_now_playing_summary"
-            android:defaultValue="true" />
+            android:defaultValue="true"
+            lineage:requiresPackage="com.google.android.as" />
 
         <com.alpha.settings.preferences.SecureSettingSwitchPreference
             android:key="quick_look_google_smartspace"
