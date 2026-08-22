@@ -148,6 +148,8 @@ public class LockScreen extends SettingsPreferenceFragment
         Settings.Secure.putIntForUser(resolver,
                 "quick_look_now_playing", 1, UserHandle.USER_CURRENT);
         Settings.Secure.putIntForUser(resolver,
+                "quick_look_now_playing_cloud", 0, UserHandle.USER_CURRENT);
+        Settings.Secure.putIntForUser(resolver,
                 "quick_look_google_smartspace", 1, UserHandle.USER_CURRENT);
         Settings.Secure.putIntForUser(resolver,
                 "quick_look_smartspacer", 1, UserHandle.USER_CURRENT);
