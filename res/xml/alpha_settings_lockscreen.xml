@@ -118,14 +118,6 @@
             android:defaultValue="true" />
 
         <com.alpha.settings.preferences.SecureSettingSwitchPreference
-            android:key="quick_look_now_playing_cloud"
-            android:icon="@drawable/ic_now_playing"
-            android:title="@string/quicklook_now_playing_cloud_title"
-            android:summary="@string/quicklook_now_playing_cloud_summary"
-            android:dependency="quick_look_now_playing"
-            android:defaultValue="false" />
-
-        <com.alpha.settings.preferences.SecureSettingSwitchPreference
             android:key="quick_look_google_smartspace"
             android:icon="@drawable/ic_google"
             android:title="@string/quicklook_google_smartspace_title"
