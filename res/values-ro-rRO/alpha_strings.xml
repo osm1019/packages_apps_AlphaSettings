@@ -1260,8 +1260,6 @@
     <string name="quicklook_alarm_summary">Next scheduled alarm time</string>
     <string name="quicklook_media_title">Media</string>
     <string name="quicklook_media_summary">Currently playing media info</string>
-    <string name="quicklook_now_playing_title">Now Playing</string>
-    <string name="quicklook_now_playing_summary">Ambient music recognition from Google</string>
     <string name="quicklook_google_smartspace_title">Google Smartspace</string>
     <string name="quicklook_google_smartspace_summary">Weather, timers, sports, and more from Google</string>
     <string name="quicklook_smartspacer_title">Smartspacer</string>

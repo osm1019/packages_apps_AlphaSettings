@@ -1255,8 +1255,6 @@ Beberapa layar mungkin tampak mati.</string>
     <string name="quicklook_alarm_summary">Waktu alarm terjadwal berikutnya</string>
     <string name="quicklook_media_title">Media</string>
     <string name="quicklook_media_summary">Informasi media sedang diputar saat ini</string>
-    <string name="quicklook_now_playing_title">Sedang Diputar</string>
-    <string name="quicklook_now_playing_summary">Pengenalan musik latar dari Google</string>
     <string name="quicklook_google_smartspace_title">Ruang pintar Google</string>
     <string name="quicklook_google_smartspace_summary">Cuaca, pengatur waktu, olahraga, dan banyak lagi dari Google</string>
     <string name="quicklook_smartspacer_title">Smartspacer</string>
