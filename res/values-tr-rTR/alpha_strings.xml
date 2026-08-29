@@ -1257,6 +1257,8 @@
     <string name="quicklook_alarm_summary">Sıradaki alarm zamanı</string>
     <string name="quicklook_media_title">Medya</string>
     <string name="quicklook_media_summary">Şu anda oynatılan medya bilgisi</string>
+    <string name="now_playing_title">Şimdi oynatılıyor</string>
+    <string name="now_playing_summary">Google ortam müziği tanıma</string>
     <string name="quicklook_google_smartspace_title">Google Smartspace</string>
     <string name="quicklook_google_smartspace_summary">Google\'dan hava durumu, zamanlayıcılar, spor sonuçları ve daha fazlası</string>
     <string name="quicklook_smartspacer_title">Smartspacer</string>

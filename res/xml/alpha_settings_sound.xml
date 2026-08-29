@@ -36,6 +36,15 @@
         android:summary="@string/adaptive_playback_summary"
         android:fragment="com.alpha.settings.fragments.sound.AdaptivePlayback" /> -->
 
+    <!-- Now Playing -->
+    <com.alpha.settings.preferences.SecureSettingSwitchPreference
+        android:key="now_playing_enabled"
+        android:icon="@drawable/ic_now_playing"
+        android:title="@string/now_playing_title"
+        android:summary="@string/now_playing_summary"
+        android:defaultValue="true"
+        lineage:requiresPackage="com.google.android.as" />
+
     <!-- Volume panel -->
     <PreferenceCategory
         android:key="volume_panel"
