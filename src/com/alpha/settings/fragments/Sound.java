@@ -56,6 +56,7 @@ public class Sound extends SettingsPreferenceFragment {
     private static final String KEY_VIBRATE_DISCONNECT = "vibrate_on_disconnect";
     private static final String KEY_VOLUME_PANEL_LEFT = "volume_panel_on_left";
     private static final String KEY_VOLUME_HAPTIC = "volume_dialog_haptic_feedback";
+    private static final String KEY_NOW_PLAYING = "now_playing_enabled";
 
     private SwitchPreferenceCompat mVolumePanelLeft;
     private SwitchPreferenceCompat mVolumeHaptic;
@@ -137,6 +138,10 @@ public class Sound extends SettingsPreferenceFragment {
                     }
                     if (!hapticAvailable) {
                         keys.add(KEY_VOLUME_HAPTIC);
+                    }
+                    if (!context.getResources().getBoolean(com.android.internal.R.bool
+                            .config_supportsBackgroundMusicRecognition)) {
+                        keys.add(KEY_NOW_PLAYING);
                     }
                     return keys;
                 }
