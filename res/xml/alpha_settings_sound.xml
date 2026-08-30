@@ -42,7 +42,7 @@
         android:icon="@drawable/ic_now_playing"
         android:title="@string/now_playing_title"
         android:summary="@string/now_playing_summary"
-        android:defaultValue="true"
+        android:defaultValue="false"
         lineage:requiresPackage="com.google.android.as" />
 
     <!-- Volume panel -->
