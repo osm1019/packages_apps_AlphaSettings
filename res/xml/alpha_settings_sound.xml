@@ -42,7 +42,7 @@
         android:icon="@drawable/ic_now_playing"
         android:title="@string/now_playing_title"
         android:summary="@string/now_playing_summary"
-        android:defaultValue="false"
+        android:defaultValue="true"
         lineage:requiresPackage="com.google.android.as"
         lineage:requiresConfig="@*android:bool/config_supportsBackgroundMusicRecognition" />
 
