@@ -1264,6 +1264,7 @@
     <string name="pif_select_channel">Select channel</string>
     <string name="pif_channel_latest_release">Latest release</string>
     <string name="pif_channel_canary_release">Canary release</string>
+    <string name="pif_invalid_fingerprint">Invalid fingerprint format</string>
 
     <!-- TrickyStore -->
     <string name="ts_keybox_management">Keybox management</string>
@@ -1490,4 +1491,12 @@
     <!-- Battery saver refresh rate (Settings.System.LOW_POWER_REFRESH_RATE) -->
     <string name="battery_saver_refresh_rate_title">Reduce refresh rate</string>
     <string name="battery_saver_refresh_rate_summary">Use 60 Hz screen refresh rate to save power when Battery Saver is on</string>
+
+    <!-- Haptic profile picker (persist.sys.haptic_profile). Device RROs may overlay entries. -->
+    <string name="haptic_profile_title">Haptic profile</string>
+    <string name="haptic_profile_richtap">Richtap</string>
+    <string name="haptic_profile_crisp">Crisp</string>
+    <string name="haptic_profile_gentle">Gentle</string>
+    <string name="haptic_profile_op13crisp">OP13 Crisp</string>
+    <string name="haptic_profile_op13gentle">OP13 Gentle</string>
 </resources>
