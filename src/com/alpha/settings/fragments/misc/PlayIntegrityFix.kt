@@ -136,7 +136,17 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
         )
     }
 
+    private val isPifEnabled: Boolean
+        get() = Settings.System.getInt(
+            requireContext().contentResolver, PIF_ENABLED_KEY, 0) != 0
+
+    /**
+     * Evo-style backend: prefer Evolution-X hosted pif.json; if that patch is
+     * stale (>21d), scrape Pixel Canary (mustang preferred). Never touches
+     * TrickyStore keybox auto-fetch.
+     */
     private fun autoFetchIfStale() {
+        if (!isPifEnabled) return
         val content = Settings.Secure.getStringForUser(
             requireContext().contentResolver, PIF_CONFIG_KEY, UserHandle.USER_CURRENT)
         val isManuallyImported = try {
@@ -145,32 +155,47 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
 
         if (isManuallyImported) return
 
-        val localPatch = try {
-            if (!content.isNullOrEmpty()) JSONObject(content).optString("SECURITY_PATCH", "") else ""
-        } catch (_: Exception) { "" }
-        val age = getPatchAgeDays(localPatch)
-        val needsFetch = content.isNullOrEmpty() || age == null || age > AUTO_FETCH_STALE_DAYS
-        if (!needsFetch) return
-
         markAutoFetchDone()
         scope.launch {
             try {
-                val (devices, apiKey) = withContext(Dispatchers.IO) {
-                    fetchAvailableCanaryDevices()
-                }
-                if (devices.isEmpty() || apiKey.isNullOrEmpty()) return@launch
-                val preferred = devices.firstOrNull { it.device == "komodo" }
-                    ?: devices.firstOrNull { it.device == "blazer" }
-                    ?: devices.first()
-                val betaResult = withContext(Dispatchers.IO) {
-                    buildCanaryPifFromDevice(preferred, apiKey)
-                }
-                if (betaResult !is PifFetchResult.Success) return@launch
+                val serverResult = withContext(Dispatchers.IO) { fetchFallbackPif() }
+                if (serverResult !is PifFetchResult.Success) return@launch
 
-                val fp = betaResult.pifData.optString("FINGERPRINT", "")
+                val localPatch = try {
+                    if (!content.isNullOrEmpty()) JSONObject(content).optString("SECURITY_PATCH", "") else ""
+                } catch (_: Exception) { "" }
+                val serverPatch = serverResult.pifData.optString("SECURITY_PATCH", "")
+
+                val localPatchDate = parsePatchDate(localPatch)
+                val serverPatchDate = parsePatchDate(serverPatch)
+
+                val resultToSave: PifFetchResult.Success = when {
+                    serverPatchDate != null &&
+                        (localPatchDate == null || serverPatchDate.after(localPatchDate)) -> {
+                        serverResult
+                    }
+                    (getPatchAgeDays(serverPatch) ?: 0L) > AUTO_FETCH_STALE_DAYS -> {
+                        val (devices, apiKey) = withContext(Dispatchers.IO) {
+                            fetchAvailableCanaryDevices()
+                        }
+                        if (devices.isEmpty() || apiKey.isNullOrEmpty()) return@launch
+                        // Prefer Pixel 10 Pro XL (mustang), then other P10 / P9 XL
+                        val preferred = devices.firstOrNull { it.device == "mustang" }
+                            ?: devices.firstOrNull { it.device == "blazer" }
+                            ?: devices.firstOrNull { it.device == "komodo" }
+                            ?: devices.first()
+                        val betaResult = withContext(Dispatchers.IO) {
+                            buildCanaryPifFromDevice(preferred, apiKey)
+                        }
+                        if (betaResult is PifFetchResult.Success) betaResult else return@launch
+                    }
+                    else -> return@launch
+                }
+
+                val fp = resultToSave.pifData.optString("FINGERPRINT", "")
                 if (!isValidFingerprint(fp)) return@launch
 
-                val toSave = JSONObject(betaResult.pifData.toString()).apply {
+                val toSave = JSONObject(resultToSave.pifData.toString()).apply {
                     put("manually_imported", false)
                 }
                 Settings.Secure.putString(
@@ -178,10 +203,9 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
                     PIF_CONFIG_KEY,
                     toSave.toString(2)
                 )
-                betaResult.pifData.optString("SECURITY_PATCH")
+                resultToSave.pifData.optString("SECURITY_PATCH")
                     .takeIf { it.isNotEmpty() }?.let {
-                        Settings.Secure.putString(
-                            requireContext().contentResolver, TrickyStore.PATCH_KEY, it)
+                        updatePatchDateIfSimple(requireContext().contentResolver, it)
                     }
                 killGms()
                 refreshStatus()
@@ -407,6 +431,10 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
         private const val FLASH_URL = "https://flash.android.com"
         private const val FLASH_API = "https://content-flashstation-pa.googleapis.com/v1/builds"
         private const val PIXEL_BULLETIN_URL = "https://source.android.com/docs/security/bulletin/pixel"
+        /** Evolution X hosted pif.json — primary auto-fetch backend (no keybox). */
+        private const val FALLBACK_PIF_URL =
+            "https://raw.githubusercontent.com/Evolution-X/.github/refs/heads/main/profile/pif.json"
+        private const val PIF_ENABLED_KEY = "spoof_pif_enabled"
         private const val VENDING_PACKAGE = "com.android.vending"
         private const val DROIDGUARD_PACKAGE = "com.google.android.gms.unstable"
         private const val GMS_PACKAGE = "com.google.android.gms"
@@ -746,5 +774,44 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
             val diff = System.currentTimeMillis() - (sdf.parse(patch)?.time ?: return null)
             diff / (1000L * 60 * 60 * 24)
         } catch (_: Exception) { null }
+
+        private fun parsePatchDate(patch: String): java.util.Date? = try {
+            java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.US).parse(patch)
+        } catch (_: Exception) { null }
+
+        /**
+         * Writes [patch] to TrickyStore PATCH_KEY only when existing value is empty
+         * or a plain YYYY-MM-DD date (preserves TEE-SIM block configs).
+         */
+        private fun updatePatchDateIfSimple(
+            resolver: android.content.ContentResolver,
+            patch: String,
+        ) {
+            val existing = Settings.Secure.getString(resolver, TrickyStore.PATCH_KEY) ?: ""
+            val isSimple = existing.isEmpty() ||
+                existing.trim().matches(Regex("""\d{4}-\d{2}-\d{2}"""))
+            if (isSimple) {
+                Settings.Secure.putString(resolver, TrickyStore.PATCH_KEY, patch)
+            }
+        }
+
+        /** Evolution X hosted pif.json (mustang / current working profile). */
+        private fun fetchFallbackPif(): PifFetchResult {
+            return try {
+                val content = URL(FALLBACK_PIF_URL).readText(StandardCharsets.UTF_8)
+                val json = JSONObject(content)
+                val fp = json.optString("FINGERPRINT", "")
+                if (fp.isEmpty() || !isValidFingerprint(fp)) {
+                    PifFetchResult.Error("Invalid fingerprint in fallback pif.json")
+                } else {
+                    PifFetchResult.Success(
+                        json.optString("MODEL", "Unknown"),
+                        json
+                    )
+                }
+            } catch (e: Exception) {
+                PifFetchResult.Error("Fallback fetch failed: ${e.message ?: ""}")
+            }
+        }
     }
 }

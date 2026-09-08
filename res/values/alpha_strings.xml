@@ -1501,4 +1501,67 @@
     <string name="haptic_profile_gentle">Gentle</string>
     <string name="haptic_profile_op13crisp">OP13 Crisp</string>
     <string name="haptic_profile_op13gentle">OP13 Gentle</string>
+<!-- Full spoofing hub / Pixel props / Tensor / per-app (from evoqpr2) -->
+    <string name="spoofing_title">Spoofing</string>
+    <string name="spoofing_summary">Play Integrity, device identity, and feature spoofing</string>
+    <string name="spoofing_integrity_category">Play Integrity</string>
+    <string name="spoofing_identity_category">Device identity</string>
+    <string name="spoofing_features_category">Hardware features</string>
+    <string name="spoofing_pixel_props_title">Pixel props</string>
+    <string name="spoofing_pixel_props_summary">Spoof selected apps as a Pixel device to unlock Pixel-exclusive features</string>
+    <string name="spoofing_app_specific_category">App-specific overrides</string>
+    <string name="spoofing_photos_title">Google Photos</string>
+    <string name="spoofing_photos_summary">Spoof Google Photos as a Pixel XL</string>
+    <string name="spoofing_snap_title">Snapchat</string>
+    <string name="spoofing_snap_summary">Spoof Snapchat as a Pixel XL to fix possible chat issues</string>
+    <string name="spoofing_applying_changes">Applying spoof changes…</string>
+    <string name="tensor_spoof_title">Tensor feature targets</string>
+    <string name="tensor_spoof_summary">Grant selected apps access to Pixel Tensor-exclusive AI features</string>
+    <string name="tensor_spoof_enable">Tensor spoofing</string>
+    <string name="tensor_spoof_enable_summary">Grant selected apps access to Pixel Tensor-exclusive features</string>
+    <string name="tensor_targets_none_configured">No apps targeted</string>
+    <string name="tensor_targets_count">%1$d apps targeted</string>
+    <string name="tensor_targets_empty_description">Selected apps will report Tensor hardware features to unlock AI and Pixel-exclusive functionality</string>
+    <string name="user_selectable_app_spoofing_title">App &amp; game spoofing</string>
+    <string name="user_selectable_app_spoofing_summary">Spoof device properties for specific apps and games</string>
+    <string name="user_select_spoofing_profile_title">Select spoofing profile</string>
+    <string name="app_spoofing_category_title">Per-app spoofing</string>
+    <string name="app_spoofing_header_title">Enable spoofing</string>
+    <string name="app_spoofing_configured_count">%1$d apps &amp; games spoofed</string>
+    <string name="app_spoofing_disabled">Disabled</string>
+    <string name="app_spoofing_add_apps">Add apps &amp; games</string>
+    <string name="app_spoofing_clear_all">Clear all</string>
+    <string name="app_spoofing_configured_apps">Configured apps &amp; games</string>
+    <string name="app_spoofing_no_apps_configured">No apps or games configured</string>
+    <string name="app_spoofing_spoof_model">Spoof model</string>
+    <string name="app_spoofing_select_spoof_model">Select spoof model</string>
+    <string name="app_spoofing_change_app">Change app</string>
+    <string name="app_spoofing_empty_description">Selected apps will report a spoofed device identity to bypass hardware checks</string>
+    <string name="app_spoofing_clear_all_confirm">This will remove all configured app spoofing entries.</string>
+    <string name="app_spoofing_no_apps_available">No apps or games available</string>
+    <string name="app_spoofing_no_apps_found">No results for "%s"</string>
+    <string name="app_spoofing_longpress_hint">Long press to quickly reassign a profile</string>
+    <string name="app_spoofing_remove_title">Remove app?</string>
+    <string name="app_spoofing_remove_confirm">Remove %1$s from the spoofing list?</string>
+    <string name="add_new_spoof_profile">Add new profile</string>
+    <string name="add_custom_spoof_profile_title">Add custom spoof profile</string>
+    <string name="custom_spoof_profile_name">Profile name</string>
+    <string name="custom_spoof_profile_brand">Brand</string>
+    <string name="custom_spoof_profile_manufacturer">Manufacturer</string>
+    <string name="custom_spoof_profile_device">Device</string>
+    <string name="custom_spoof_profile_model">Model</string>
+    <string name="custom_spoof_profile_fingerprint">Fingerprint (optional)</string>
+    <string name="custom_spoof_profile_product">Product (optional)</string>
+    <string name="pp_target_count">Spoofing %1$d app(s) as Pixel</string>
+    <string name="pp_spoof_as">Spoof as</string>
+    <string name="pp_empty_description">Selected apps will report the chosen Pixel device identity to unlock Pixel-exclusive features</string>
+    <string name="pp_mainline_unsupported">This device is already a Pixel. Spoofing is not available on mainline Pixel devices.</string>
+    <string name="action_search_apps">Search apps</string>
+    <string name="common_clear_search">Clear search</string>
+
+
+    <string name="action_reset">Reset</string>
+    <string name="action_select_all">Select all</string>
+    <string name="action_add_installed">Add installed</string>
+
 </resources>
