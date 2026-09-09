@@ -1565,4 +1565,13 @@
     <string name="action_select_all">Select all</string>
     <string name="action_add_installed">Add installed</string>
 
+
+    <string name="pif_advanced_settings">Advanced spoofing</string>
+    <string name="pif_spoof_vending_finger_title">Play Store fingerprint spoof</string>
+    <string name="pif_spoof_vending_finger_summary">Controls which FINGERPRINT is presented to the Play Store process</string>
+    <string name="pif_spoof_vending_sdk_title">Spoof SDK to DroidGuard</string>
+    <string name="pif_spoof_vending_sdk_summary">Override SDK_INT for DroidGuard to force the legacy &lt;A13 attestation path</string>
+    <string name="pif_vending_finger_disabled">Disabled</string>
+    <string name="pif_vending_finger_same">Same as DroidGuard</string>
+
 </resources>

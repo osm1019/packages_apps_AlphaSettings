@@ -17,6 +17,9 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/play_integrity_fix_title">
 
+    <!-- Master switch lives on Spoofing hub (spoof_pif_enabled); categories
+         still work when opened from hub. Match Evo advanced prefs 1:1. -->
+
     <PreferenceCategory
         android:key="pif_status_category"
         android:title="@string/pif_status">
@@ -44,14 +47,22 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="pif_settings_category"
-        android:title="@string/pif_settings">
+        android:key="pif_advanced_category"
+        android:title="@string/pif_advanced_settings">
 
-        <com.alpha.settings.preferences.SecureSettingSwitchPreference
-            android:key="spoof_pif_photos"
-            android:title="@string/pif_spoof_photos"
-            android:summary="@string/pif_spoof_photos_summary"
-            android:defaultValue="true" />
+        <ListPreference
+            android:key="pif_spoof_vending_finger"
+            android:title="@string/pif_spoof_vending_finger_title"
+            android:summary="@string/pif_spoof_vending_finger_summary"
+            android:entries="@array/pif_spoof_vending_finger_entries"
+            android:entryValues="@array/pif_spoof_vending_finger_values"
+            android:defaultValue="0" />
+
+        <SwitchPreferenceCompat
+            android:key="pif_spoof_vending_sdk"
+            android:title="@string/pif_spoof_vending_sdk_title"
+            android:summary="@string/pif_spoof_vending_sdk_summary"
+            android:defaultValue="false" />
     </PreferenceCategory>
 
     <PreferenceCategory

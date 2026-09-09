@@ -16,6 +16,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceCategory
 import androidx.preference.SwitchPreferenceCompat
@@ -103,10 +104,21 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
             true
         }
 
-        findPreference<SwitchPreferenceCompat>("spoof_pif_photos")?.setOnPreferenceChangeListener { _, newValue ->
-            killPackage(PHOTOS_PACKAGE)
-            killPackage(VENDING_PACKAGE)
-            true
+        findPreference<ListPreference>("pif_spoof_vending_finger")?.apply {
+            val current = activeConfigData["spoofVendingFinger"] ?: "0"
+            value = current
+            setOnPreferenceChangeListener { _, newValue ->
+                updateConfigValue("spoofVendingFinger", newValue as String)
+                true
+            }
+        }
+
+        findPreference<SwitchPreferenceCompat>("pif_spoof_vending_sdk")?.apply {
+            isChecked = activeConfigData["spoofVendingSdk"].let { it == "1" || it == "true" }
+            setOnPreferenceChangeListener { _, newValue ->
+                updateConfigValue("spoofVendingSdk", if (newValue as Boolean) "1" else "0")
+                true
+            }
         }
 
         refreshStatus()
@@ -237,6 +249,29 @@ class PlayIntegrityFix : SettingsPreferenceFragment() {
         findPreference<Preference>("pif_delete_config")?.isEnabled = exists
 
         populateConfigDetails(activeConfigData)
+
+        findPreference<ListPreference>("pif_spoof_vending_finger")?.value =
+            activeConfigData["spoofVendingFinger"] ?: "0"
+        findPreference<SwitchPreferenceCompat>("pif_spoof_vending_sdk")?.isChecked =
+            activeConfigData["spoofVendingSdk"].let { it == "1" || it == "true" }
+    }
+
+    private fun updateConfigValue(key: String, value: String) {
+        try {
+            val existing = Settings.Secure.getStringForUser(
+                requireContext().contentResolver, PIF_CONFIG_KEY, UserHandle.USER_CURRENT)
+            val json = try { JSONObject(existing ?: "") } catch (_: Exception) { JSONObject() }
+            json.put(key, value)
+            Settings.Secure.putString(
+                requireContext().contentResolver,
+                PIF_CONFIG_KEY,
+                json.toString(2)
+            )
+            refreshStatus()
+            killGms()
+        } catch (e: Exception) {
+            toast(getString(R.string.pif_failed, e.message ?: ""))
+        }
     }
 
     private fun populateConfigDetails(data: Map<String, String>) {
