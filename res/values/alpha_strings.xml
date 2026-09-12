@@ -1267,6 +1267,19 @@
     <string name="pif_channel_latest_release">Latest release</string>
     <string name="pif_channel_canary_release">Canary release</string>
     <string name="pif_invalid_fingerprint">Invalid fingerprint format</string>
+    <string name="pif_wipe_playstore_title">Clear Play Store data?</string>
+    <string name="pif_wipe_playstore_message">Applying this fingerprint works best with a fresh Play Store session. Clear Play Store app data now? This will sign you out and clear its local cache and download queue.</string>
+    <string name="pif_wipe_confirm">Clear data</string>
+    <string name="pif_no_devices_found">No devices found</string>
+    <string name="pif_master_switch_title">Enable Play Integrity Fix</string>
+    <string name="pif_advanced_settings">Advanced spoofing</string>
+    <string name="pif_spoof_vending_finger_title">Play Store fingerprint spoof</string>
+    <string name="pif_spoof_vending_finger_summary">Controls which FINGERPRINT is presented to the Play Store process</string>
+    <string name="pif_spoof_vending_sdk_title">Spoof SDK to DroidGuard</string>
+    <string name="pif_spoof_vending_sdk_summary">Override SDK_INT for DroidGuard to force the legacy &lt;A13 attestation path</string>
+    <string name="pif_vending_finger_disabled">Disabled (default)</string>
+    <string name="pif_vending_finger_same">Same as DroidGuard fingerprint</string>
+    <string name="action_delete">Delete</string>
 
     <!-- TrickyStore -->
     <string name="ts_keybox_management">Keybox management</string>
