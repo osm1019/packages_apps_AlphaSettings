@@ -101,11 +101,6 @@ abstract class SettingPrimarySwitchPreference @JvmOverloads constructor(
 
     fun isChecked() = checked
 
-    /** Re-read the stored setting value and refresh the switch UI. */
-    fun loadValue() {
-        setChecked(getPersistedBoolean(checked))
-    }
-
     fun setChecked(checked: Boolean) {
         val changed = this.checked != checked
         // Always persist/notify the first time; don't assume the field's default of false.
